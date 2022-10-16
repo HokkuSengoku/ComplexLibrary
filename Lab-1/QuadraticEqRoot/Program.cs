@@ -18,7 +18,6 @@ namespace QuadraticEqRoot
             double c = Convert.ToDouble(Console.ReadLine());
 
             double d = Math.Pow(b,2) - 4 *(a*c);
-            double x;
             if (d > 0)
                 Console.WriteLine($"x1 = {(-b + Math.Sqrt(d)) / (2 * a)}"+
              $" x2 = {(-b - Math.Sqrt(d)) / (2 * a)}");
