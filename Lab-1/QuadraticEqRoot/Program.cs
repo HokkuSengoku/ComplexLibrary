@@ -17,13 +17,15 @@ namespace QuadraticEqRoot
             Console.Write("c: ");
             double c = Convert.ToDouble(Console.ReadLine());
 
-            double x = a + b + Math.Sqrt(c);
-            if (x > 0)
-            {
-                x = x - 10;
-            }
-
-            Console.WriteLine("The root is {0}", x);
+            double d = Math.Pow(b,2) - 4 *(a*c);
+            double x;
+            if (d > 0)
+                Console.WriteLine($"x1 = {(-b + Math.Sqrt(d)) / (2 * a)}"+
+             $" x2 = {(-b - Math.Sqrt(d)) / (2 * a)}");
+            else if (d == 0)
+                Console.WriteLine($"x = {-b / (2 * a)}");
+            else
+                Console.WriteLine("No roots");
         }
     }
 }
