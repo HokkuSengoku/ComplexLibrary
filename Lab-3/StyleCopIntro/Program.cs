@@ -1,34 +1,13 @@
-using System;
-
 namespace StyleCopIntro
 {
-    class              Program
+    using System;
+
+    public class Program
     {
-        static void    Main(string[] args)
+        public static void Main(string[] args)
         {
-            var Me = new user("John", "Smith");
-            Console.WriteLine(Me.getFullName());
-
-
-
-        }
-    }
-
-
-
-
-    class user
-    {
-        private string FirstName;
-        private string last_name;
-
-        public user(string firstName, string lastName)
-        {
-            FirstName = firstName; last_name = lastName;
-        }
-        public string getFullName()
-        {
-            return FirstName + " " + last_name;
+            var me = new User("John", "Smith");
+            Console.WriteLine(me.GetFullName());
         }
     }
 }
