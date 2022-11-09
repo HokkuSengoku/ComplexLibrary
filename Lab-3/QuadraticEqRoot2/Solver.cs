@@ -1,16 +1,34 @@
 namespace QuadraticEqRoot2
 {
+    using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
 
     public static class Solver
     {
         public static IList<double> Solve(double a, double b, double c)
         {
             // todo: Replace with actual implementation
-            double x1 = 1;
-            double x2 = 3;
+            List<double> roots = new List<double>();
+            double d = Math.Pow(b, 2) - (4 * (a * c));
+            if (d > 0)
+            {
+                double x1 = (-b + Math.Sqrt(d)) / (2 * a);
+                double x2 = (-b - Math.Sqrt(d)) / (2 * a);
+                roots.Add(x1);
+                roots.Add(x2);
 
-            return new[] { x1, x2 };
+                roots.Sort();
+                roots.Reverse();
+            }
+
+            if (d == 0)
+            {
+                double x = -b / (2 * a);
+                roots.Add(x);
+            }
+
+            return roots;
         }
     }
 }
