@@ -24,8 +24,7 @@ namespace QuadraticEqRoot2
 
                 while ((line = input.ReadLine()) != null)
                 {
-                    double[] coefficients = new double[3];
-                    coefficients = GetCoefficients(line);
+                    double[] coefficients = GetCoefficients(line);
                     double a = coefficients[0]; // todo: get from line
                     double b = coefficients[1]; // todo: get from line
                     double c = coefficients[2]; // todo: get from line
