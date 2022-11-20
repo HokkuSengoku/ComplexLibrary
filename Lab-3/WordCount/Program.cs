@@ -7,10 +7,11 @@ namespace WordCount
 
     internal class Program
     {
+        private static HashSet<string> uniqueWords = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
         private static void Main(string[] args)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            var letterDictionary = new Dictionary<string, string>();
 
             var oldWinEncoding = Encoding.GetEncoding(1251);
             var winBytes = File.ReadAllBytes(@"Data\Начало.txt");
@@ -19,50 +20,25 @@ namespace WordCount
             string file1Path = @"Data\Беда_одна_не_ходит.txt";
             string file3Path = @"Data\Хэппи_Энд.txt";
 
-            int wordCount = 0;
-
-            wordCount += CalculateWordCount(ReadFile(file1Path), letterDictionary);
-            wordCount += CalculateWordCount(file2Text, letterDictionary);
-            wordCount += CalculateWordCount(ReadFile(file3Path), letterDictionary);
-
-            Console.WriteLine("Count of words in story files: {0}", wordCount);
+            ReadFile(file1Path);
+            CalculateWordCount(file2Text);
+            ReadFile(file3Path);
+            Console.WriteLine("Count of words in story files: {0}", uniqueWords.Count);
         }
 
-        private static int CalculateWordCount(string text, Dictionary<string, string> letterDictionary)
+        private static void CalculateWordCount(string text)
         {
-            int wordCount = 0;
-            string result;
-            char[] delimiterChars = { ' ', ',', '.', ':', '\t' };
-            var textSplit = text.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries);
-            StringBuilder sb = new StringBuilder();
+            char[] delimiterChars = { ' ', ',', '.', ':', '\t', '-', '!', '?' };
+            var textSplit = text.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
-            foreach (var letter in textSplit)
+            foreach (var word in textSplit)
             {
-                for (var i = 0; i < letter.Length; i++)
-                {
-                    if (char.IsLetter(letter[i]))
-                    {
-                        sb.Append(char.ToLower(letter[i]));
-                    }
-                }
-
-                result = sb.ToString();
-
-                if (!letterDictionary.ContainsKey(result) && result != string.Empty)
-                {
-                    letterDictionary[result] = result;
-                    wordCount++;
-                }
-
-                sb.Clear();
+                uniqueWords.Add(word);
             }
-
-            return wordCount;
         }
 
-        private static string ReadFile(string path)
+        private static void ReadFile(string path)
         {
-            var sb = new StringBuilder();
             try
             {
                 using (StreamReader sr = new StreamReader(path))
@@ -70,7 +46,7 @@ namespace WordCount
                     string line;
                     while ((line = sr.ReadLine()) != null)
                     {
-                        sb.Append(line);
+                        CalculateWordCount(line);
                     }
                 }
             }
@@ -79,8 +55,6 @@ namespace WordCount
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);
             }
-
-            return sb.ToString();
         }
     }
 }
