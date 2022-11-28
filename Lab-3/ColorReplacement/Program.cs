@@ -42,7 +42,7 @@ namespace ColorReplacement
                 while ((line = source.ReadLine()) != null)
                 {
                     line = Regex.Replace(line, regPattern, ReplaceDelegate);
-                    Console.WriteLine(line);
+                    target.WriteLine(line);
                 }
 
                 // reads source.txt, replaces colors, writes target.txt, collects data about replaced colors
@@ -58,7 +58,7 @@ namespace ColorReplacement
             {
                 foreach (var color in replacementColors)
                 {
-                    target.WriteLine(color);
+                    target.WriteLine($"{color.Key} {color.Value}");
                 }
             }
         }
