@@ -12,7 +12,7 @@ namespace QuadraticEqRoot2
             List<double> roots = new List<double>();
             double epsilon = 0.000001;
             double d = Math.Pow(b, 2) - (4 * (a * c));
-            if (Math.Abs(d) > epsilon)
+            if (d > epsilon && d > 0)
             {
                 double x1 = (-b + Math.Sqrt(d)) / (2 * a);
                 double x2 = (-b - Math.Sqrt(d)) / (2 * a);
