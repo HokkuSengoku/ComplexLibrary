@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestComplexLibrary", "TestComplexLibrary\TestComplexLibrary.csproj", "{54AC84C2-EED5-446B-A045-8EA7ADCC8586}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplexActions", "ComplexActions\ComplexActions.csproj", "{67E2E089-F0EF-4305-B8FF-6C11DB3A8E02}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{54AC84C2-EED5-446B-A045-8EA7ADCC8586}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54AC84C2-EED5-446B-A045-8EA7ADCC8586}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54AC84C2-EED5-446B-A045-8EA7ADCC8586}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54AC84C2-EED5-446B-A045-8EA7ADCC8586}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67E2E089-F0EF-4305-B8FF-6C11DB3A8E02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67E2E089-F0EF-4305-B8FF-6C11DB3A8E02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67E2E089-F0EF-4305-B8FF-6C11DB3A8E02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67E2E089-F0EF-4305-B8FF-6C11DB3A8E02}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
