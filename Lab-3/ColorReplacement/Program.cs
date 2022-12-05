@@ -101,22 +101,37 @@ namespace ColorReplacement
         private static string ReplaceDelegate(Match match)
         {
             string replaceValueKey = string.Empty;
-            string replaceValue = string.Empty;
 
             if (match.Value.Length > 9)
             {
                 replaceValueKey = RgbConvert(match.Value);
+                replaceValueKey = ContainsColor(replaceValueKey, match.Value);
+
+                return replaceValueKey;
             }
 
             if (match.Value.Length == 7)
             {
                 replaceValueKey = match.Value;
+                replaceValueKey = ContainsColor(replaceValueKey, match.Value);
+
+                return replaceValueKey;
             }
 
             if (match.Value.Length == 4)
             {
                 replaceValueKey = TripleHexConvert(match.Value);
+                replaceValueKey = ContainsColor(replaceValueKey, match.Value);
+
+                return replaceValueKey;
             }
+
+            return replaceValueKey;
+        }
+
+        private static string ContainsColor(string replaceValueKey, string matchValue)
+        {
+            string replaceValue = string.Empty;
 
             if (colorsList.ContainsKey(replaceValueKey))
             {
@@ -128,8 +143,10 @@ namespace ColorReplacement
 
                 return replaceValue;
             }
-
-            return replaceValueKey;
+            else
+            {
+                return matchValue;
+            }
         }
     }
 }
