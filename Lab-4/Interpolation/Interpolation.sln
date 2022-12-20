@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interpolation", "Interpolation\Interpolation.csproj", "{9280970C-BE9A-474B-8656-0BE5E928F739}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterpolationTest", "InterpolationTest\InterpolationTest.csproj", "{263515A1-F8B2-4353-BB33-D6F40DB0E1D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9280970C-BE9A-474B-8656-0BE5E928F739}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9280970C-BE9A-474B-8656-0BE5E928F739}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9280970C-BE9A-474B-8656-0BE5E928F739}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9280970C-BE9A-474B-8656-0BE5E928F739}.Release|Any CPU.Build.0 = Release|Any CPU
+		{263515A1-F8B2-4353-BB33-D6F40DB0E1D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{263515A1-F8B2-4353-BB33-D6F40DB0E1D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{263515A1-F8B2-4353-BB33-D6F40DB0E1D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{263515A1-F8B2-4353-BB33-D6F40DB0E1D9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
