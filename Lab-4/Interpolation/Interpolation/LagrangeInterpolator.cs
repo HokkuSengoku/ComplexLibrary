@@ -16,13 +16,14 @@ public class LagrangeInterpolator : CommonInterpolator
     public override double CalculateValue(double x)
     {
         double lagrangePol = 0;
-        Array.Sort(_xValues);
-        Array.Sort(_yValues);
-        for (var i = 0; i < _xValues.Length - 1; i++)
+        double[] xValues = _xValues;
+        Array.Sort(xValues);
+
+        for (var i = 0; i < xValues.Length - 1; i++)
         {
-            if (_xValues[i] == _xValues[i + 1])
+            if (xValues[i] == xValues[i + 1])
             {
-                throw new ArgumentException("Neighboring points have the same value.");
+                throw new ArgumentException("The values of x are not unique.");
             }
         }
 
@@ -48,10 +49,5 @@ public class LagrangeInterpolator : CommonInterpolator
         }
 
         return lagrangePol;
-    }
-
-    public double ThePolynomial(double x)
-    {
-        return x * x + x + 1;
     }
 }

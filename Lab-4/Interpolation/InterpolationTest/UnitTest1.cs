@@ -1,4 +1,5 @@
 using Interpolation;
+using NUnit.Framework;
 
 namespace InterpolationTest;
 

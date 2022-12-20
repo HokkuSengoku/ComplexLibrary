@@ -9,7 +9,7 @@ public class Program
         
         double[] values = { 3.0, 1.0, 1.0 };
         double[] xValues = { 1.0, 0.0, -1.0 };
-        double[] yValues = new double[xValues.Length];
+        double[] yValues = { 1.0, 1.0, 3.0 };
         var lagrange = new LagrangeInterpolator(yValues, xValues);
 
         object[] interpolators =
@@ -18,11 +18,6 @@ public class Program
             new LinearInterpolator(values), 
             lagrange
         };
-        
-        for (int i = 0; i < yValues.Length; i++)
-        {
-            yValues[i] = lagrange.ThePolynomial(xValues[i]);
-        }
 
         Console.WriteLine("Calculating value at sample point: {0}", SamplePoint);
 
