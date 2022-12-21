@@ -6,10 +6,23 @@ public class Program
 
     public static void Main()
     {
-        
         double[] values = { 3.0, 1.0, 1.0 };
-        double[] xValues = { 1.0, 0.0, -1.0 };
-        double[] yValues = { 1.0, 1.0, 3.0 };
+        Console.WriteLine("Enter the number of points to interpolate:");
+        int.TryParse(Console.ReadLine(), out int size);
+        double[] xValues = new double[size];
+        double[] yValues = new double[size];
+        Console.WriteLine($"Enter x values:");
+        for (var i = 0; i < size; i++)
+        {
+            xValues[i] = Convert.ToDouble(Console.ReadLine());
+        }
+
+        Console.WriteLine($"Enter y values:");
+        for (var i = 0; i < size; i++)
+        {
+            yValues[i] = Convert.ToDouble(Console.ReadLine());
+        }
+
         var lagrange = new LagrangeInterpolator(yValues, xValues);
 
         object[] interpolators =
