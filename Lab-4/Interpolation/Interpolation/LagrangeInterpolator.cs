@@ -18,14 +18,10 @@ public class LagrangeInterpolator : CommonInterpolator
         {
             throw new ArgumentException("One of the arrays is empty or their lengths are not equal to each other.");
         }
-    }
 
-    public override double CalculateValue(double x)
-    {
-        double lagrangePol = 0;
-        var xValues = (double[])_xValues.Clone();
+        var xValuesSort = (double[])_xValues.Clone();
 
-        Array.Sort(xValues);
+        Array.Sort(xValuesSort);
 
         for (var i = 0; i < xValues.Length - 1; i++)
         {
@@ -34,6 +30,11 @@ public class LagrangeInterpolator : CommonInterpolator
                 throw new ArgumentException("The values of x are not unique.");
             }
         }
+    }
+
+    public override double CalculateValue(double x)
+    {
+        double lagrangePol = 0;
 
         for (int i = 0; i < _xValues.Length; i++)
         {
