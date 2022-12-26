@@ -2,7 +2,7 @@
 
 public class Program
 {
-    private const double SamplePoint = 1.0;
+    private const double SamplePoint = 3.0;
 
     public static void Main()
     {
