@@ -6,7 +6,8 @@ public class Program
 
     public static void Main()
     {
-        double[] values = { 3.0, 1.0, 1.0 };
+        double[] values = { 0.000, 2.187, 3.188 };
+        const double T = 3.0;
         Console.WriteLine("Enter the number of points to interpolate:");
         int.TryParse(Console.ReadLine(), out int size);
         double[] xValues = new double[size];
@@ -24,12 +25,14 @@ public class Program
         }
 
         var lagrange = new LagrangeInterpolator(yValues, xValues);
+        var sinc = new SincInterpolation(values, T);
 
         object[] interpolators =
         {
             new StepInterpolator(values),
-            new LinearInterpolator(values), 
-            lagrange
+            new LinearInterpolator(values),
+            lagrange,
+            sinc,
         };
 
         Console.WriteLine("Calculating value at sample point: {0}", SamplePoint);
