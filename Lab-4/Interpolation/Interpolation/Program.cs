@@ -14,13 +14,19 @@ public class Program
         Console.WriteLine($"Enter x values:");
         for (var i = 0; i < size; i++)
         {
-            double.TryParse(Console.ReadLine(), out xValues[i]);
+            while (!double.TryParse(Console.ReadLine(), out xValues[i]))
+            {
+                Console.WriteLine("Incorrect value entered, try again.");
+            }
         }
 
         Console.WriteLine($"Enter y values:");
         for (var i = 0; i < size; i++)
         {
-            double.TryParse(Console.ReadLine(), out yValues[i]);
+            while (!double.TryParse(Console.ReadLine(), out yValues[i]))
+            {
+                Console.WriteLine("Incorrect value entered, try again.");
+            }
         }
 
         var lagrange = new LagrangeInterpolator(yValues, xValues);
