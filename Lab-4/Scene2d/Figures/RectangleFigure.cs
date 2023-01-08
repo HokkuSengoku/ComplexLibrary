@@ -1,6 +1,7 @@
 namespace Scene2d.Figures
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Drawing;
 
     public class RectangleFigure : IFigure
@@ -30,7 +31,16 @@ namespace Scene2d.Figures
         {
             /* Should calculate the rectangle that wraps current figure and has edges parallel to X and Y */
 
-            throw new NotImplementedException();
+              double xMin = Math.Min(Math.Min(_p1.X, _p2.X), Math.Min(_p3.X, _p4.X));
+              double xMax = Math.Max(Math.Max(_p1.X, _p2.X), Math.Max(_p3.X, _p4.X));
+              double yMin = Math.Min(Math.Min(_p1.Y, _p2.Y), Math.Min(_p3.Y, _p4.Y));
+              double yMax = Math.Max(Math.Max(_p1.Y, _p2.Y), Math.Max(_p3.Y, _p4.Y));
+
+              SceneRectangle aFlowingRectangle = default;
+              aFlowingRectangle.Vertex1 = new ScenePoint(xMin, yMin);
+              aFlowingRectangle.Vertex1 = new ScenePoint(xMax, yMax);
+
+              return aFlowingRectangle;
         }
 
         public void Move(ScenePoint vector)
