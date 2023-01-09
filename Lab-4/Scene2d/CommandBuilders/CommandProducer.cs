@@ -45,7 +45,7 @@ namespace Scene2d.CommandBuilders
 
                 if (_currentBuilder == null)
                 {
-                    throw new BadFormatException();
+                    throw new BadFormatException($"Error in line 46: bad format");
                 }
             }
 

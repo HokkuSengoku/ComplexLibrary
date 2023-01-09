@@ -4,5 +4,8 @@ namespace Scene2d.Exceptions
 
     public class BadFormatException : Exception
     {
+        public BadFormatException(string message)
+        {
+        }
     }
 }
