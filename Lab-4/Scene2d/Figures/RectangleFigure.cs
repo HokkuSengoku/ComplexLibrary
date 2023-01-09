@@ -38,7 +38,7 @@ namespace Scene2d.Figures
 
               SceneRectangle aFlowingRectangle = default;
               aFlowingRectangle.Vertex1 = new ScenePoint(xMin, yMin);
-              aFlowingRectangle.Vertex1 = new ScenePoint(xMax, yMax);
+              aFlowingRectangle.Vertex2 = new ScenePoint(xMax, yMax);
 
               return aFlowingRectangle;
         }
