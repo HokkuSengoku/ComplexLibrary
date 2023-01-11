@@ -8,7 +8,7 @@
 
     public class AddCircleCommandBuilder : ICommandBuilder
     {
-        private static readonly Regex RecognizeRegex = new Regex(@"(((add\scircle))\s((\w+||[-])*)\s((\([+-]?\d*,\s[+-]?\d*\)))\s(radius)\s\d*)");
+        private static readonly Regex RecognizeRegex = new Regex(@"(((add\scircle))\s((\w+||[-])*)\s((\([+-]?\d*,\s?[+-]?\d*\)))\s(radius)\s\d*)");
 
         /* Should be set in AppendLine method */
         private IFigure _circle;
