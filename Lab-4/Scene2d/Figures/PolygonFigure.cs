@@ -1,5 +1,7 @@
 namespace Scene2d.Figures
 {
+    using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
 
@@ -15,33 +17,19 @@ namespace Scene2d.Figures
         public SceneRectangle CalculateCircumscribingRectangle()
         {
             double x1, y1, x2, y2;
-            x1 = _points[0].X;
-            x2 = _points[0].X;
-            y1 = _points[0].Y;
-            y2 = _points[0].Y;
+            var xValues = new List<double>();
+            var yValues = new List<double>();
 
-            for (var i = 1; i < _points.Length; i++)
+            foreach (var point in _points)
             {
-                if (_points[i].X < x1)
-                {
-                    x1 = _points[i].X;
-                }
-
-                if (_points[i].Y < y1)
-                {
-                    y1 = _points[i].Y;
-                }
-
-                if (_points[i].X > x2)
-                {
-                    x2 = _points[i].X;
-                }
-
-                if (_points[i].Y > y2)
-                {
-                    y2 = _points[i].Y;
-                }
+                xValues.Add(point.X);
+                yValues.Add(point.Y);
             }
+
+            x1 = xValues.Min();
+            y1 = yValues.Min();
+            x2 = xValues.Max();
+            y2 = yValues.Max();
 
             SceneRectangle aFlowingRectangle = default;
             aFlowingRectangle.Vertex1 = new ScenePoint(x1, y1);
