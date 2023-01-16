@@ -45,16 +45,36 @@ namespace Scene2d.Figures
 
         public void Move(ScenePoint vector)
         {
-            /* Should move all the points of current rectangle */
-
-            throw new NotImplementedException();
+            _p1 = new ScenePoint { X = _p1.X + vector.X, Y = _p1.Y + vector.Y };
+            _p2 = new ScenePoint { X = _p2.X + vector.X, Y = _p2.Y + vector.Y };
+            _p3 = new ScenePoint { X = _p3.X + vector.X, Y = _p3.Y + vector.Y };
+            _p4 = new ScenePoint { X = _p4.X + vector.X, Y = _p4.Y + vector.Y };
         }
 
         public void Rotate(double angle)
         {
-            /* Should rotate current rectangle. Rotation origin point is the rectangle center.*/
+            ScenePoint point = CalculateTheCenterOfDescribedRectangle();
 
-            throw new NotImplementedException();
+            _p1 = new ScenePoint
+            {
+                X = ((_p1.X - point.X) * Math.Cos(angle)) - ((_p1.Y - point.Y) * Math.Sin(angle)) + point.X,
+                Y = ((_p1.X - point.X) * Math.Sin(angle)) + ((_p1.Y - point.Y) * Math.Cos(angle)) + point.Y,
+            };
+            _p2 = new ScenePoint
+            {
+                X = ((_p2.X - point.X) * Math.Cos(angle)) - ((_p2.Y - point.Y) * Math.Sin(angle)) + point.X,
+                Y = ((_p2.X - point.X) * Math.Sin(angle)) + ((_p2.Y - point.Y) * Math.Cos(angle)) + point.Y,
+            };
+            _p3 = new ScenePoint
+            {
+                X = ((_p3.X - point.X) * Math.Cos(angle)) - ((_p3.Y - point.Y) * Math.Sin(angle)) + point.X,
+                Y = ((_p3.X - point.X) * Math.Sin(angle)) + ((_p3.Y - point.Y) * Math.Cos(angle)) + point.Y,
+            };
+            _p1 = new ScenePoint
+            {
+                X = ((_p4.X - point.X) * Math.Cos(angle)) - ((_p4.Y - point.Y) * Math.Sin(angle)) + point.X,
+                Y = ((_p4.X - point.X) * Math.Sin(angle)) + ((_p4.Y - point.Y) * Math.Cos(angle)) + point.Y,
+            };
         }
 
         public void Reflect(ReflectOrientation orientation)
@@ -62,6 +82,20 @@ namespace Scene2d.Figures
             /* Should reflect the figure. Reflection edge is the rectangle axis of symmetry (horizontal or vertical). */
 
             throw new NotImplementedException();
+        }
+
+        public ScenePoint RotatePoint(ScenePoint currentPoint, ScenePoint point)
+        {
+            return new ScenePoint {X = ((currentPoint.X - point.X) * Math.Cos(angle)) - ((_p1.Y - point.Y) * Math.Sin(angle)) + point.X,
+                Y = ((_p1.X - point.X) * Math.Sin(angle)) + ((_p1.Y - point.Y) * Math.Cos(angle)) + point.Y,}
+        }
+        public ScenePoint CalculateTheCenterOfDescribedRectangle()
+        {
+            ScenePoint left = CalculateCircumscribingRectangle().Vertex1;
+            ScenePoint right = CalculateCircumscribingRectangle().Vertex2;
+            ScenePoint point = new ScenePoint { X = (right.X + left.X) / 2, Y = (left.Y + right.Y) / 2 };
+
+            return point;
         }
 
         public void Draw(ScenePoint origin, Graphics drawing)
