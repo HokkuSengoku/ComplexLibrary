@@ -11,5 +11,9 @@ namespace Scene2d
         public double X { get; set; }
 
         public double Y { get; set; }
+
+        private static void RotatePoint()
+        {
+        }
     }
 }
