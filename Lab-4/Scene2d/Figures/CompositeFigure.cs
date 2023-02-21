@@ -11,10 +11,7 @@ public class CompositeFigure : ICompositeFigure
     public CompositeFigure(List<IFigure> figures, string name)
     {
         _name = name;
-        foreach (var figure in figures)
-        {
-            ChildFigures.Add(figure);
-        }
+        ChildFigures = figures;
     }
 
     public IList<IFigure> ChildFigures { get; }

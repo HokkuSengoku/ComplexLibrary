@@ -12,6 +12,7 @@ namespace Scene2d
         private readonly Dictionary<string, IFigure> _figures = new Dictionary<string, IFigure>();
 
         private readonly Dictionary<string, ICompositeFigure> _compositeFigures = new Dictionary<string, ICompositeFigure>();
+        private CompositeFigure _compositeFiguress;
 
         public void AddFigure(string name, IFigure figure)
         {
@@ -51,7 +52,7 @@ namespace Scene2d
                 figures.Add(_figures[nameFigure]);
             }
 
-            var compositeFigure = new CompositeFigure(figures, name);
+            _compositeFiguress = new CompositeFigure(figures, name);
         }
 
         public SceneRectangle CalculateCircumscribingRectangle(string name)
@@ -84,7 +85,14 @@ namespace Scene2d
 
         public void Rotate(string name, double angle)
         {
-            _figures[name].Rotate(angle);
+            // (name == _compositeFiguress.Name)
+            // {
+            //    _compositeFiguress.Rotate(angle);
+            // }
+            // else
+            {
+                _figures[name].Rotate(angle);
+            }
         }
 
         public IEnumerable<IFigure> ListDrawableFigures()
