@@ -18,6 +18,15 @@
     <None Update="TestInputs\smile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Remove="Scene2d.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Scene2d.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Scene2d.Tests\**" />
   </ItemGroup>
 
 </Project>
