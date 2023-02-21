@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scene2d", "Scene2d.csproj", "{83FCC948-1C98-4765-848F-91092E1CBE0C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scene2d.Tests", "Scene2d.Tests\Scene2d.Tests.csproj", "{660A5E31-3833-4F6D-B5F6-AF8E0C670437}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{83FCC948-1C98-4765-848F-91092E1CBE0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83FCC948-1C98-4765-848F-91092E1CBE0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83FCC948-1C98-4765-848F-91092E1CBE0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{660A5E31-3833-4F6D-B5F6-AF8E0C670437}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{660A5E31-3833-4F6D-B5F6-AF8E0C670437}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{660A5E31-3833-4F6D-B5F6-AF8E0C670437}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{660A5E31-3833-4F6D-B5F6-AF8E0C670437}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

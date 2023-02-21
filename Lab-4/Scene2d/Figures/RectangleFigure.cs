@@ -53,7 +53,7 @@ namespace Scene2d.Figures
 
         public void Rotate(double angle)
         {
-            ScenePoint point = CalculateCircumscribingRectangle().CalculateTheCenterOfCircumscribedRectangle();
+            ScenePoint point = CalculateCircumscribingRectangle().CalculateTheCenterOfRectangle();
 
             _p1 = _p1.RotatePoint(point, angle);
             _p2 = _p2.RotatePoint(point, angle);
@@ -63,9 +63,28 @@ namespace Scene2d.Figures
 
         public void Reflect(ReflectOrientation orientation)
         {
-            /* Should reflect the figure. Reflection edge is the rectangle axis of symmetry (horizontal or vertical). */
+            ScenePoint centerPoint = CalculateCircumscribingRectangle().CalculateTheCenterOfRectangle();
 
-            throw new NotImplementedException();
+            switch (orientation)
+            {
+                case ReflectOrientation.Horizontal:
+                    {
+                        _p1 = new ScenePoint { X = (-1 * (_p1.X - centerPoint.X)) + centerPoint.X, Y = _p1.Y };
+                        _p2 = new ScenePoint { X = (-1 * (_p2.X - centerPoint.X)) + centerPoint.X, Y = _p2.Y };
+                        _p3 = new ScenePoint { X = (-1 * (_p3.X - centerPoint.X)) + centerPoint.X, Y = _p3.Y };
+                        _p4 = new ScenePoint { X = (-1 * (_p4.X - centerPoint.X)) + centerPoint.X, Y = _p4.Y };
+                        break;
+                    }
+
+                case ReflectOrientation.Vertical:
+                    {
+                        _p1 = new ScenePoint { X = _p1.X, Y = (-1 * (_p1.Y - centerPoint.Y)) + centerPoint.Y };
+                        _p2 = new ScenePoint { X = _p2.X, Y = (-1 * (_p2.Y - centerPoint.Y)) + centerPoint.Y };
+                        _p3 = new ScenePoint { X = _p3.X, Y = (-1 * (_p3.Y - centerPoint.Y)) + centerPoint.Y };
+                        _p4 = new ScenePoint { X = _p4.X, Y = (-1 * (_p4.Y - centerPoint.Y)) + centerPoint.Y };
+                        break;
+                    }
+            }
         }
 
         public void Draw(ScenePoint origin, Graphics drawing)

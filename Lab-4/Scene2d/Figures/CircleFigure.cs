@@ -1,6 +1,7 @@
 namespace Scene2d.Figures
 {
     using System.Drawing;
+    using System.Numerics;
 
     public class CircleFigure : IFigure
     {
@@ -29,17 +30,15 @@ namespace Scene2d.Figures
 
         public void Move(ScenePoint vector)
         {
-            throw new System.NotImplementedException();
+            _center = new ScenePoint { X = _center.X + vector.X, Y = _center.Y + vector.Y };
         }
 
         public void Rotate(double angle)
         {
-            throw new System.NotImplementedException();
         }
 
         public void Reflect(ReflectOrientation orientation)
         {
-            throw new System.NotImplementedException();
         }
 
         public void Draw(ScenePoint origin, Graphics drawing)

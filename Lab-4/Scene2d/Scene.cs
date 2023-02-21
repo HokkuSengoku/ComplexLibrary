@@ -45,7 +45,13 @@ namespace Scene2d
 
         public void CreateCompositeFigure(string name, IEnumerable<string> childFigures)
         {
-            /* Should create a group figure. */
+            List<IFigure> figures = new List<IFigure>();
+            foreach (var nameFigure in childFigures)
+            {
+                figures.Add(_figures[nameFigure]);
+            }
+
+            var compositeFigure = new CompositeFigure(figures, name);
         }
 
         public SceneRectangle CalculateCircumscribingRectangle(string name)
@@ -57,22 +63,28 @@ namespace Scene2d
 
         public void MoveScene(ScenePoint vector)
         {
-            /* Should move all the figures and groups in the scene by 'vector' */
+            foreach (var figure in _figures)
+            {
+                figure.Value.Move(vector);
+            }
         }
 
         public void Move(string name, ScenePoint vector)
         {
-            /* Should move figure or group 'name' by 'vector' */
+            _figures[name].Move(vector);
         }
 
         public void RotateScene(double angle)
         {
-            /* Should rotate all figures and groups in the scene by 'angle' */
+            foreach (var figure in _figures)
+            {
+                figure.Value.Rotate(angle);
+            }
         }
 
         public void Rotate(string name, double angle)
         {
-            /* Should rotate figure or group 'name' by 'angle' */
+            _figures[name].Rotate(angle);
         }
 
         public IEnumerable<IFigure> ListDrawableFigures()
@@ -111,12 +123,15 @@ namespace Scene2d
 
         public void ReflectScene(ReflectOrientation reflectOrientation)
         {
-            /* Should reflect all the figures and groups in the scene */
+            foreach (var figure in _figures)
+            {
+                figure.Value.Reflect(reflectOrientation);
+            }
         }
 
         public void Reflect(string name, ReflectOrientation reflectOrientation)
         {
-            /* Should reflect figure or group 'name' */
+            _figures[name].Reflect(reflectOrientation);
         }
     }
 }

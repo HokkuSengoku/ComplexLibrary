@@ -6,7 +6,7 @@ namespace Scene2d
 
         public ScenePoint Vertex2 { get; set; }
 
-        public ScenePoint CalculateTheCenterOfCircumscribedRectangle()
+        public ScenePoint CalculateTheCenterOfRectangle()
         {
             ScenePoint left = Vertex1;
             ScenePoint right = Vertex2;

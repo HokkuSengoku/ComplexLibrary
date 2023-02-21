@@ -40,17 +40,48 @@ namespace Scene2d.Figures
 
         public void Move(ScenePoint vector)
         {
-            throw new System.NotImplementedException();
+            for (var i = 0; i < _points.Length; i++)
+            {
+                _points[i] = new ScenePoint { X = _points[i].X + vector.X, Y = _points[i].Y + vector.Y };
+            }
         }
 
         public void Rotate(double angle)
         {
-            throw new System.NotImplementedException();
+            ScenePoint point = CalculateCircumscribingRectangle().CalculateTheCenterOfRectangle();
+
+            for (var i = 0; i < _points.Length; i++)
+            {
+                _points[i] = _points[i].RotatePoint(point, angle);
+            }
         }
 
         public void Reflect(ReflectOrientation orientation)
         {
-            throw new System.NotImplementedException();
+            ScenePoint centerPoint = CalculateCircumscribingRectangle().CalculateTheCenterOfRectangle();
+
+            switch (orientation)
+            {
+                case ReflectOrientation.Horizontal:
+                {
+                    for (var i = 0; i < _points.Length; i++)
+                    {
+                        _points[i] = new ScenePoint { X = (-1 * (_points[i].X - centerPoint.X)) + centerPoint.X, Y = _points[i].Y };
+                    }
+
+                    break;
+                }
+
+                case ReflectOrientation.Vertical:
+                {
+                    for (var i = 0; i < _points.Length; i++)
+                    {
+                        _points[i] = new ScenePoint { X = _points[i].X, Y = (-1 * (_points[i].Y - centerPoint.Y)) + centerPoint.Y };
+                    }
+
+                    break;
+                }
+            }
         }
 
         public void Draw(ScenePoint origin, Graphics drawing)
