@@ -3,27 +3,50 @@ namespace Scene2d.Figures;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 public class CompositeFigure : ICompositeFigure
 {
     private string _name;
 
-    public CompositeFigure(List<IFigure> figures, string name)
+    public CompositeFigure(IList<IFigure> figures, string name)
     {
         _name = name;
         ChildFigures = figures;
     }
 
-    public IList<IFigure> ChildFigures { get; }
+    public IList<IFigure> ChildFigures { get; set; }
 
     public object Clone()
     {
-        throw new System.NotImplementedException();
+        CompositeFigure other = (CompositeFigure)this.MemberwiseClone();
+        other._name = string.Copy(_name);
+        other.ChildFigures = new List<IFigure>(this.ChildFigures);
+
+        return other;
     }
 
     public SceneRectangle CalculateCircumscribingRectangle()
     {
-        throw new System.NotImplementedException();
+        List<ScenePoint> minVertex = new List<ScenePoint>();
+        List<ScenePoint> maxVertex = new List<ScenePoint>();
+        ScenePoint resultMinVertex;
+        ScenePoint resultMaxVertex;
+
+        foreach (var figure in ChildFigures)
+        {
+            var currentRectangle = figure.CalculateCircumscribingRectangle();
+            minVertex.Add(currentRectangle.Vertex1);
+            maxVertex.Add(currentRectangle.Vertex2);
+        }
+
+        resultMinVertex = minVertex.Min();
+        resultMaxVertex = maxVertex.Max();
+        SceneRectangle circumscribedRectangle = default;
+        circumscribedRectangle.Vertex1 = resultMinVertex;
+        circumscribedRectangle.Vertex2 = resultMaxVertex;
+
+        return circumscribedRectangle;
     }
 
     public void Move(ScenePoint vector)
@@ -44,7 +67,10 @@ public class CompositeFigure : ICompositeFigure
 
     public void Reflect(ReflectOrientation orientation)
     {
-        throw new System.NotImplementedException();
+        foreach (var figure in ChildFigures)
+        {
+            figure.Reflect(orientation);
+        }
     }
 
     public void Draw(ScenePoint origin, Graphics drawing)
