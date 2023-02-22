@@ -15,15 +15,18 @@ public class CompositeFigure : ICompositeFigure
         ChildFigures = figures;
     }
 
-    public IList<IFigure> ChildFigures { get; set; }
+    public IList<IFigure> ChildFigures { get; }
 
     public object Clone()
     {
-        CompositeFigure other = (CompositeFigure)this.MemberwiseClone();
-        other._name = string.Copy(_name);
-        other.ChildFigures = new List<IFigure>(this.ChildFigures);
+        string name = _name;
+        IList<IFigure> figures = new List<IFigure>();
+        foreach (var figure in ChildFigures)
+        {
+            figures.Add((IFigure)figure.Clone());
+        }
 
-        return other;
+        return new CompositeFigure(figures, name);
     }
 
     public SceneRectangle CalculateCircumscribingRectangle()
