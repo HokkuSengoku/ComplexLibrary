@@ -10,7 +10,6 @@ public class RectangleTests
     {
         var basedRectangle = new RectangleFigure(new ScenePoint { X = p1X, Y = p1y }, new ScenePoint { X = p2x, Y = p2y });
         var rectangle = new RectangleFigure(new ScenePoint { X = p1X, Y = p1y }, new ScenePoint { X = p2x, Y = p2y });
-        basedRectangle.
         ScenePoint vectorMove = new ScenePoint { X = vector, Y = vector };
         rectangle.Move(vectorMove);
 
