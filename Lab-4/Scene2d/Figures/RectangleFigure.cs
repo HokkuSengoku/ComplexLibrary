@@ -122,10 +122,5 @@ namespace Scene2d.Figures
                     (float)(_p1.Y - origin.Y));
             }
         }
-
-        void IFigure.Clone()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
