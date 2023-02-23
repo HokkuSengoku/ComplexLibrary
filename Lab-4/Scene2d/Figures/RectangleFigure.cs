@@ -22,9 +22,10 @@ namespace Scene2d.Figures
 
         public object Clone()
         {
-            /* Should return new Rectangle with the same points as the current one. */
+            ScenePoint p1 = _p1;
+            ScenePoint p2 = _p3;
 
-            throw new NotImplementedException();
+            return new RectangleFigure(p1, p2);
         }
 
         public SceneRectangle CalculateCircumscribingRectangle()
