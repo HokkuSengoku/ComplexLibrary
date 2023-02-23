@@ -107,7 +107,15 @@ namespace Scene2d.Figures
 
         public object Clone()
         {
-            throw new System.NotImplementedException();
+            ScenePoint[] points;
+            List<ScenePoint> convertPoints = new List<ScenePoint>();
+            foreach (var point in _points)
+            {
+                convertPoints.Add(point);
+            }
+
+            points = convertPoints.ToArray();
+            return new PolygonFigure(points);
         }
     }
 }
