@@ -3,6 +3,7 @@ namespace Scene2d
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Scene2d.Exceptions;
     using Scene2d.Figures;
 
     public class Scene
@@ -52,7 +53,15 @@ namespace Scene2d
                 figures.Add(_figures[nameFigure]);
             }
 
-            _compositeFiguress = new CompositeFigure(figures, name);
+            _compositeFiguress = new CompositeFigure(figures);
+            if (_compositeFigures.ContainsKey(name))
+            {
+                throw new BadFormatException("ek");
+            }
+            else
+            {
+                _compositeFigures[name] = _compositeFiguress;
+            }
         }
 
         public SceneRectangle CalculateCircumscribingRectangle(string name)
@@ -109,14 +118,30 @@ namespace Scene2d
         {
             /* Should copy the entire scene to a group named 'copyName' */
 
-            throw new NotImplementedException();
+            List<IFigure> figures = new List<IFigure>();
+            foreach (var figure in _figures)
+            {
+                figures.Add(figure.Value);
+            }
+
+            if (_compositeFigures.ContainsKey(copyName))
+            {
+                throw new BadFormatException("dada");
+            }
+            else
+            {
+                _compositeFigures[copyName] = new CompositeFigure(figures);
+            }
         }
 
         public void Copy(string originalName, string copyName)
         {
             /* Should copy figure or group 'originalName' to 'copyName' */
 
-            throw new NotImplementedException();
+            if (_compositeFigures.ContainsKey(originalName))
+            {
+                
+            }
         }
 
         public void DeleteScene()
