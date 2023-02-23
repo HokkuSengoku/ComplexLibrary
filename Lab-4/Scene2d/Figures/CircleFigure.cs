@@ -57,7 +57,9 @@ namespace Scene2d.Figures
 
         public object Clone()
         {
-            throw new System.NotImplementedException();
+            double radius = _radius;
+            ScenePoint center = _center;
+            return new CircleFigure(center, radius);
         }
     }
 }
