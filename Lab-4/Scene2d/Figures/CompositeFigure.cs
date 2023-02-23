@@ -7,11 +7,8 @@ using System.Linq;
 
 public class CompositeFigure : ICompositeFigure
 {
-    private string _name;
-
-    public CompositeFigure(IList<IFigure> figures, string name)
+    public CompositeFigure(IList<IFigure> figures)
     {
-        _name = name;
         ChildFigures = figures;
     }
 
@@ -19,14 +16,13 @@ public class CompositeFigure : ICompositeFigure
 
     public object Clone()
     {
-        string name = _name;
         IList<IFigure> figures = new List<IFigure>();
         foreach (var figure in ChildFigures)
         {
             figures.Add((IFigure)figure.Clone());
         }
 
-        return new CompositeFigure(figures, name);
+        return new CompositeFigure(figures);
     }
 
     public SceneRectangle CalculateCircumscribingRectangle()
