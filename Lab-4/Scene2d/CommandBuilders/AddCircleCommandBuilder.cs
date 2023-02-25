@@ -8,7 +8,7 @@
 
     public class AddCircleCommandBuilder : ICommandBuilder
     {
-        private static readonly Regex RecognizeRegex = new Regex(@"(((add\scircle))\s((\w+||[-])*)\s((\([+-]?\d*,\s?[+-]?\d*\)))\s(radius)\s\d*)");
+        private static readonly Regex RecognizeRegex = new Regex(@"(((add\scircle))\s((\w+||[-])*)\s((\([+-]?\d*,\s?[+-]?\d*\)))\s(radius)\s[+-]?\d*)");
 
         /* Should be set in AppendLine method */
         private IFigure _circle;
@@ -35,12 +35,20 @@
                 var command = match.Value.Split(separators, StringSplitOptions.RemoveEmptyEntries);
                 _name = command[2];
                 coordinates = GetCoordinates(command);
-                radius = Convert.ToDouble(command[6]);
+                if (Convert.ToDouble(command[6]) <= 0)
+                {
+                    throw new BadCircleRadiusException("Error in line 38: bad circle radius");
+                }
+                else
+                {
+                    radius = Convert.ToDouble(command[6]);
+                }
+
                 _circle = new CircleFigure(new ScenePoint { X = coordinates[0], Y = coordinates[1] }, radius);
             }
             else
             {
-                throw new BadFormatException("Error in line 27: bad format");
+                throw new BadFormatException("Error in line 49: bad format");
             }
         }
 
