@@ -18,6 +18,9 @@ namespace Scene2d.CommandBuilders
                 { new Regex("^rotate .*"), () => new RotateCommandBuilder() },
                 { new Regex("^reflect .*"), () => new ReflectCommandBuilder() },
                 { new Regex("^group .*"), () => new GroupCommandBuilder() },
+                { new Regex("^copy .*"), () => new CopyCommandBuilder() },
+                { new Regex("^delete .*"), () => new DeleteCommandBuilder() },
+                { new Regex("^print .*"), () => new PrintCircumscrbingRectangleCommandBuilder() },
                 /* declare more builders here */
             };
 
@@ -51,7 +54,7 @@ namespace Scene2d.CommandBuilders
 
                 if (_currentBuilder == null)
                 {
-                    throw new BadFormatException($"Error in line 46: bad format");
+                    throw new BadFormatException($"Error in line 55: bad format");
                 }
             }
 
