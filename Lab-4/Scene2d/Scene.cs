@@ -25,7 +25,6 @@ namespace Scene2d
         public SceneRectangle CalculateSceneCircumscribingRectangle()
         {
             /* Should calculate the rectangle that wraps the entire scene. */
-
             /* Already implemented but feel free to change according to figures storage strategy. */
 
             var allFigures = ListDrawableFigures()
@@ -71,6 +70,32 @@ namespace Scene2d
             throw new NotImplementedException();
         }
 
+        public void PrintCircumscribingRectangleScene()
+        {
+            SceneRectangle scene = CalculateSceneCircumscribingRectangle();
+            Console.WriteLine("Печатаем координаты описанного прямоугольника:");
+            Console.WriteLine($"Верхняя левая вершина: ({scene.Vertex1.X}, {scene.Vertex1.Y})");
+            Console.WriteLine($"Нижняя правая вершина: ({scene.Vertex2.X}, {scene.Vertex2.Y})");
+        }
+
+        public void PrintCircumscribingRectangle(string name)
+        {
+            if (_compositeFigures.ContainsKey(name))
+            {
+                SceneRectangle groupRectangle = _compositeFigures[name].CalculateCircumscribingRectangle();
+                Console.WriteLine("Печатаем координаты описанного прямоугольника:");
+                Console.WriteLine($"Верхняя левая вершина: ({groupRectangle.Vertex1.X}, {groupRectangle.Vertex1.Y})");
+                Console.WriteLine($"Нижняя правая вершина: ({groupRectangle.Vertex2.X}, {groupRectangle.Vertex2.Y})");
+            }
+            else
+            {
+                SceneRectangle figureRectangle = _figures[name].CalculateCircumscribingRectangle();
+                Console.WriteLine("Печатаем координаты описанного прямоугольника:");
+                Console.WriteLine($"Верхняя левая вершина: ({figureRectangle.Vertex1.X}, {figureRectangle.Vertex1.Y})");
+                Console.WriteLine($"Нижняя правая вершина: ({figureRectangle.Vertex2.X}, {figureRectangle.Vertex2.Y})");
+            }
+        }
+
         public void MoveScene(ScenePoint vector)
         {
             foreach (var figure in _figures)
@@ -81,7 +106,14 @@ namespace Scene2d
 
         public void Move(string name, ScenePoint vector)
         {
-            _figures[name].Move(vector);
+            if (_compositeFigures.ContainsKey(name))
+            {
+                _compositeFigures[name].Move(vector);
+            }
+            else
+            {
+                _figures[name].Move(vector);
+            }
         }
 
         public void RotateScene(double angle)
@@ -94,11 +126,11 @@ namespace Scene2d
 
         public void Rotate(string name, double angle)
         {
-            // (name == _compositeFiguress.Name)
-            // {
-            //    _compositeFiguress.Rotate(angle);
-            // }
-            // else
+            if (_compositeFigures.ContainsKey(name))
+            {
+                _compositeFigures[name].Rotate(angle);
+            }
+            else
             {
                 _figures[name].Rotate(angle);
             }
@@ -126,7 +158,7 @@ namespace Scene2d
 
             if (_compositeFigures.ContainsKey(copyName))
             {
-                throw new BadFormatException("dada");
+                throw new NameDoesAlreadyExistException("Scene.cs Error in line 133: name does already exist");
             }
             else
             {
@@ -138,20 +170,40 @@ namespace Scene2d
         {
             /* Should copy figure or group 'originalName' to 'copyName' */
 
-            if (_compositeFigures.ContainsKey(originalName))
+            if (_compositeFigures.ContainsKey(originalName) && !_compositeFigures.ContainsKey(copyName))
             {
-                
+                _compositeFigures[copyName] = (CompositeFigure)_compositeFigures[originalName].Clone();
+            }
+            else if (_figures.ContainsKey(originalName) && !_figures.ContainsKey(copyName))
+            {
+                _figures[copyName] = (IFigure)_figures[originalName].Clone();
+            }
+            else
+            {
+                throw new NameDoesAlreadyExistException("Error in line 155: name does already exist");
             }
         }
 
         public void DeleteScene()
         {
-            /* Should delete all the figures and groups from the scene */
+            _figures.Clear();
+            _compositeFigures.Clear();
         }
 
         public void Delete(string name)
         {
-            /* Should delete figure or group named 'name' */
+            if (_compositeFigures.ContainsKey(name))
+            {
+                _compositeFigures.Clear();
+            }
+            else if (_figures.ContainsKey(name))
+            {
+                _figures.Remove(name);
+            }
+            else
+            {
+                throw new BadFormatException("bad name input");
+            }
         }
 
         public void ReflectScene(ReflectOrientation reflectOrientation)
@@ -164,7 +216,18 @@ namespace Scene2d
 
         public void Reflect(string name, ReflectOrientation reflectOrientation)
         {
-            _figures[name].Reflect(reflectOrientation);
+            if (_compositeFigures.ContainsKey(name))
+            {
+                _compositeFigures[name].Reflect(reflectOrientation);
+            }
+            else if (_figures.ContainsKey(name))
+            {
+                _figures[name].Reflect(reflectOrientation);
+            }
+            else
+            {
+                throw new BadNameException("Error in line 202: the name value does not exist");
+            }
         }
     }
 }
