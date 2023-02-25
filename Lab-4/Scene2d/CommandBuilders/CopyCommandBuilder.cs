@@ -28,7 +28,6 @@ public class CopyCommandBuilder : ICommandBuilder
         {
             var match = SceneRegex.Match(line);
             var command = match.Value.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-            _name = command[1];
             _nameTo = command[3];
             _isScene = true;
         }
@@ -36,6 +35,7 @@ public class CopyCommandBuilder : ICommandBuilder
         {
             var match = FigureOrGroupRegex.Match(line);
             var command = match.Value.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            _name = command[1];
             _nameTo = command[3];
             _isScene = false;
         }
