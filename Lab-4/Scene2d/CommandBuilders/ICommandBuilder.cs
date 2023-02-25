@@ -1,5 +1,6 @@
 namespace Scene2d.CommandBuilders
 {
+    using NUnit.Framework;
     using Scene2d.Commands;
 
     public interface ICommandBuilder
