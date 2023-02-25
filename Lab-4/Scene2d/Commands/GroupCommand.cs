@@ -13,7 +13,13 @@ public class GroupCommand : ICommand
         _compositeFigure = compositeFigure;
     }
 
-    public string FriendlyResultMessage { get; }
+    public string FriendlyResultMessage
+    {
+        get
+        {
+            return $"joining shapes into one composition with the name {_name}";
+        }
+    }
 
     public void Apply(Scene scene)
     {

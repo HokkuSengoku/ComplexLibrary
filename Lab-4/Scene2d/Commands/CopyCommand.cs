@@ -19,7 +19,20 @@ public class CopyCommand : ICommand
         _isScene = isScene;
     }
 
-    public string FriendlyResultMessage { get; }
+    public string FriendlyResultMessage
+    {
+        get
+        {
+            if (_isScene)
+            {
+                return "Copy Scene";
+            }
+            else
+            {
+                return $"Copy figure or group {_name} to new figure or group with name  {_nameTo}";
+            }
+        }
+    }
 
     public void Apply(Scene scene)
     {

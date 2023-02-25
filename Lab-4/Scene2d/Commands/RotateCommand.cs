@@ -33,7 +33,7 @@ public class RotateCommand : ICommand
             }
             else
             {
-                return "Rotate figure" + _name + " by angle" + _angle;
+                return $"Rotate figure {_name} by angle = {_angle}";
             }
         }
     }

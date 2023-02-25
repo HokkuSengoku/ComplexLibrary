@@ -31,7 +31,7 @@ namespace Scene2d.Commands
                 }
                 else
                 {
-                    return "Moved figure" + _name + " by vector" + _vector.X + _vector.Y;
+                    return $"Moved figure {_name} by vector  ({_vector.X}, {_vector.Y})";
                 }
             }
         }
