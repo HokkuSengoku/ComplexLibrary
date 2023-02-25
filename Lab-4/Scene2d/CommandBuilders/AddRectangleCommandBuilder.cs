@@ -8,7 +8,7 @@ namespace Scene2d.CommandBuilders
 
     public class AddRectangleCommandBuilder : ICommandBuilder
     {
-        private static readonly Regex RecognizeRegex = new Regex(@"(((add\srectangle))\s((\w+||[-])*)\s(\([+-]?\d*,\s?[+-]?\d*\)\s\(\d*,\s?\d*\)))");
+        private static readonly Regex RecognizeRegex = new Regex(@"(((add\srectangle))\s((\w+||[-])*)\s(\([+-]?\d*,\s?[+-]?\d*\)\s\([+-]?\d*,\s?[+-]?\d*\)))");
 
         /* Should be set in AppendLine method */
         private IFigure _rectangle;
@@ -35,11 +35,20 @@ namespace Scene2d.CommandBuilders
                 var command = match.Value.Split(separators, StringSplitOptions.RemoveEmptyEntries);
                 _name = command[2];
                 coordinates = GetCoordinates(command);
-                _rectangle = new RectangleFigure(new ScenePoint { X = coordinates[0], Y = coordinates[1] }, new ScenePoint { X = coordinates[2], Y = coordinates[3] });
+                if (coordinates[0] != coordinates[2] && coordinates[1] != coordinates[3])
+                {
+                    _rectangle = new RectangleFigure(
+                        new ScenePoint { X = coordinates[0], Y = coordinates[1] },
+                        new ScenePoint { X = coordinates[2], Y = coordinates[3] });
+                }
+                else
+                {
+                    throw new BadRectanglePointException("Error in line 44: bad rectangle point");
+                }
             }
             else
             {
-                throw new BadFormatException("Error in line 31: bad format");
+                throw new BadFormatException("Error in line 49: bad format");
             }
         }
 
