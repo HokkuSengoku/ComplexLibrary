@@ -2,9 +2,9 @@ namespace Scene2d.Exceptions
 {
     using System;
 
-    public class BadFormatException : Exception
+    public class BadPolygonPointNumberException : Exception
     {
-        public BadFormatException(string message)
+        public BadPolygonPointNumberException(string message)
         {
             ExceptionMessage = message;
         }

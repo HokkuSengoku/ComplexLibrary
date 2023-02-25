@@ -2,9 +2,9 @@ namespace Scene2d.Exceptions
 {
     using System;
 
-    public class BadFormatException : Exception
+    public class NameDoesAlreadyExistException : Exception
     {
-        public BadFormatException(string message)
+        public NameDoesAlreadyExistException(string message)
         {
             ExceptionMessage = message;
         }
