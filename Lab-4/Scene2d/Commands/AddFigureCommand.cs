@@ -23,5 +23,17 @@ namespace Scene2d.Commands
         {
             scene.AddFigure(_name, _figure);
         }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as AddFigureCommand);
+        }
+
+        public bool Equals(AddFigureCommand command)
+        {
+            return command != null &&
+                   _name == command._name &&
+                   Equals(_figure, command._figure);
+        }
     }
 }
