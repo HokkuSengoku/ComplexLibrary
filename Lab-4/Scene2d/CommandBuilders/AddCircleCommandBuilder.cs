@@ -28,11 +28,11 @@
         {
             var separators = new char[] { ' ', '(', ')', ',' };
             var match = RecognizeRegex.Match(line);
+            var command = match.Value.Split(separators, StringSplitOptions.RemoveEmptyEntries);
             var coordinates = new double[2];
             double radius;
-            if (match.Value != string.Empty)
+            if (match.Value != string.Empty && command.Length == 7)
             {
-                var command = match.Value.Split(separators, StringSplitOptions.RemoveEmptyEntries);
                 _name = command[2];
                 coordinates = GetCoordinates(command);
                 if (Convert.ToDouble(command[6]) <= 0)

@@ -80,13 +80,13 @@
                //     }
                     if (points.Length < 3)
                     {
-                        throw new BadPolygonPointNumberException("Error in line 73: bad polygon point number");
+                        throw new BadPolygonPointNumberException("Error in line 83: bad polygon point number");
                     }
 
-                   // if (polygonPoint.Count != points.Length)
-                   // {
-                   //     throw new BadPolygonPointException("Error in line 87: bad polygon point");
-                  //  }
+                    if (polygonPoint.Count != points.Length)
+                    {
+                        throw new BadPolygonPointException("Error in line 88: bad polygon point");
+                    }
                     else
                     {
                         _polygon = default;
@@ -97,7 +97,7 @@
             }
             else
             {
-                throw new BadFormatException("Error in line 78: bad format or unexpected end of polygon");
+                throw new BadFormatException("Error in line 100: bad format or unexpected end of polygon");
             }
         }
 
