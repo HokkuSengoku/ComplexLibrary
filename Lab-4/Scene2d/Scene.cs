@@ -66,8 +66,19 @@ namespace Scene2d
         public SceneRectangle CalculateCircumscribingRectangle(string name)
         {
             /* Should calculate the rectangle that wraps figure or group 'name' */
+            if (_compositeFigures.ContainsKey(name))
+            {
+               return _compositeFigures[name].CalculateCircumscribingRectangle();
+            }
 
-            throw new NotImplementedException();
+            if (_figures.ContainsKey(name))
+            {
+               return _figures[name].CalculateCircumscribingRectangle();
+            }
+            else
+            {
+                throw new BadNameException("Error in line 80: bad name");
+            }
         }
 
         public void PrintCircumscribingRectangleScene()
