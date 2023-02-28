@@ -39,13 +39,53 @@ public class CompositeFigure : ICompositeFigure
             maxVertex.Add(currentRectangle.Vertex2);
         }
 
-        resultMinVertex = minVertex.Min();
-        resultMaxVertex = maxVertex.Max();
+        resultMinVertex = GetMinVertex(minVertex);
+        resultMaxVertex = GetMaxVertex(maxVertex);
         SceneRectangle circumscribedRectangle = default;
         circumscribedRectangle.Vertex1 = resultMinVertex;
         circumscribedRectangle.Vertex2 = resultMaxVertex;
 
         return circumscribedRectangle;
+    }
+
+    public ScenePoint GetMinVertex(List<ScenePoint> minVertex)
+    {
+        var x = new ScenePoint { X = double.MaxValue, Y = double.MaxValue };
+
+        foreach (var item in minVertex)
+        {
+            if (item.X < x.X)
+            {
+                x.X = item.X;
+            }
+
+            if (item.Y < x.Y)
+            {
+                x.Y = item.Y;
+            }
+        }
+
+        return x;
+    }
+
+    public ScenePoint GetMaxVertex(List<ScenePoint> maxVertex)
+    {
+        var x = new ScenePoint { X = double.MinValue, Y = double.MinValue };
+
+        foreach (var item in maxVertex)
+        {
+            if (item.X > x.X)
+            {
+                x.X = item.X;
+            }
+
+            if (item.Y > x.Y)
+            {
+                x.Y = item.Y;
+            }
+        }
+
+        return x;
     }
 
     public void Move(ScenePoint vector)
