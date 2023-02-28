@@ -1,5 +1,6 @@
 namespace Scene2d.Figures
 {
+    using System;
     using System.Drawing;
     using System.Numerics;
 
@@ -60,6 +61,25 @@ namespace Scene2d.Figures
             double radius = _radius;
             ScenePoint center = _center;
             return new CircleFigure(center, radius);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as CircleFigure);
+        }
+
+        public bool Equals(CircleFigure circle)
+        {
+            return Equals(_center, circle._center) && _radius == _radius;
+        }
+
+        public override int GetHashCode()
+        {
+            var hash = default(HashCode);
+            hash.Add(_center);
+            hash.Add(_radius);
+
+            return hash.ToHashCode();
         }
     }
 }

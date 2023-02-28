@@ -56,10 +56,10 @@ namespace Scene2d.Figures
         {
             ScenePoint point = CalculateCircumscribingRectangle().CalculateTheCenterOfRectangle();
 
-            _p1 = _p1.RotatePoint(point, angle);
-            _p2 = _p2.RotatePoint(point, angle);
-            _p3 = _p3.RotatePoint(point, angle);
-            _p4 = _p4.RotatePoint(point, angle);
+            _p1 = _p1.RotatePoint(point, angle * Math.PI / 180.0);
+            _p2 = _p2.RotatePoint(point, angle * Math.PI / 180.0);
+            _p3 = _p3.RotatePoint(point, angle * Math.PI / 180.0);
+            _p4 = _p4.RotatePoint(point, angle * Math.PI / 180.0);
         }
 
         public void Reflect(ReflectOrientation orientation)
@@ -122,6 +122,28 @@ namespace Scene2d.Figures
                     (float)(_p1.X - origin.X),
                     (float)(_p1.Y - origin.Y));
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as RectangleFigure);
+        }
+
+        public bool Equals(RectangleFigure rectangle)
+        {
+            return Equals(_p1, rectangle._p1) && Equals(_p2, rectangle._p2) && Equals(_p3, rectangle._p3) &&
+                   Equals(_p4, rectangle._p4);
+        }
+
+        public override int GetHashCode()
+        {
+            var hash = default(HashCode);
+            hash.Add(_p1);
+            hash.Add(_p2);
+            hash.Add(_p3);
+            hash.Add(_p4);
+
+            return hash.ToHashCode();
         }
     }
 }

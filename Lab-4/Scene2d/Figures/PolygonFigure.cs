@@ -117,5 +117,36 @@ namespace Scene2d.Figures
             points = convertPoints.ToArray();
             return new PolygonFigure(points);
         }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as PolygonFigure);
+        }
+
+        public bool Equals(PolygonFigure polygon)
+        {
+            bool coordsTrue = false;
+            for (var i = 0; i < _points.Length; i++)
+            {
+                if (_points[i].X == polygon._points[i].X && _points[i].Y == polygon._points[i].Y)
+                {
+                    coordsTrue = true;
+                }
+            }
+
+            return coordsTrue;
+        }
+
+        public override int GetHashCode()
+        {
+            var hash = default(HashCode);
+
+            for (var i = 0; i < _points.Length; i++)
+            {
+                hash.Add(_points[i]);
+            }
+
+            return hash.ToHashCode();
+        }
     }
 }
