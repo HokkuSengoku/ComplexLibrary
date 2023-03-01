@@ -124,6 +124,14 @@ namespace Scene2d.Figures
             }
         }
 
+        public bool ApproximateEquals(RectangleFigure rect, double tolerance)
+        {
+            return Math.Abs(_p1.X - rect._p1.X) < tolerance && Math.Abs(_p1.Y - rect._p1.Y) < tolerance &&
+                   Math.Abs(_p2.X - rect._p2.X) < tolerance && Math.Abs(_p2.X - rect._p2.X) < tolerance &&
+                   Math.Abs(_p3.X - rect._p3.X) < tolerance && Math.Abs(_p3.X - rect._p3.X) < tolerance &&
+                   Math.Abs(_p4.X - rect._p4.X) < tolerance && Math.Abs(_p4.X - rect._p4.X) < tolerance;
+        }
+
         public override bool Equals(object obj)
         {
             return Equals(obj as RectangleFigure);
