@@ -119,4 +119,35 @@ public class CompositeFigure : ICompositeFigure
             variablChildFigure.Draw(origin, drawing);
         }
     }
+
+    public override bool Equals(object obj)
+    {
+        return Equals(obj as CompositeFigure);
+    }
+
+    public bool Equals(CompositeFigure compositeFigure)
+    {
+        bool coordsTrue = false;
+        for (var i = 0; i < ChildFigures.Count; i++)
+        {
+            if (Equals(ChildFigures[i], compositeFigure.ChildFigures[i]))
+            {
+                coordsTrue = true;
+            }
+        }
+
+        return coordsTrue;
+    }
+
+    public override int GetHashCode()
+    {
+        var hash = default(HashCode);
+
+        for (var i = 0; i < ChildFigures.Count; i++)
+        {
+            hash.Add(ChildFigures[i].GetHashCode());
+        }
+
+        return hash.ToHashCode();
+    }
 }
