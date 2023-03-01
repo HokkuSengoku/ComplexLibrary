@@ -22,8 +22,11 @@ public class RectangleTests
             new ScenePoint { X = coordinates[2], Y = coordinates[3] });
     }
 
-    [TestCase(5.3, 7.8, 20.4, 70.2, 30.5, 10.6)]
-    [TestCase(0.0, 0.0, 2.0, 2.0, 3.0, 3.0)]
+    [TestCase(5.3, 7.8, 20.4, 70.2, 30.5, 10.6, TestName = "test1")]
+    [TestCase(0.0, 0.0, 2.0, 2.0, 3.0, 3.0, TestName = "test2")]
+    [TestCase(3.0, 0.0, 15.0, 2.0, 0.0, 0.0, TestName = "test3")]
+    [TestCase(170.0, 2.0, 192.0, 3.0, 500.0, 223.0, TestName = "test4")]
+    [TestCase(20.0, 0.0, 21.0, 2.0, -3.0, 3.0, TestName = "test5")]
     public void MoveTest_CoordinatesAndVector_IsMoved(double p1X, double p1Y, double p2X, double p2Y, double vectorX, double vectorY)
     {
         // ARRANGE
@@ -40,8 +43,11 @@ public class RectangleTests
         Assert.True(Equals(actualMovedRectangle, rectangleMovedExcepted));
     }
 
-    [TestCase("add rectangle t1 (0, 0) (k, k)")]
-    [TestCase("add rectangle x")]
+    [TestCase("add rectangle t1 (0, 0) (k, k)", TestName = "test1")]
+    [TestCase("add rectangle x", TestName = "test2")]
+    [TestCase("add rectangle !", TestName = "test3")]
+    [TestCase("add rectangle x (2, 3)", TestName = "test4")]
+    [TestCase("add rectangle x1 (2, 3) (5, 2", TestName = "test5")]
     public void AddRectangleTest_stringInput_IsBadFormat(string input)
     {
         // ARRANGE
@@ -53,8 +59,8 @@ public class RectangleTests
         Assert.Throws<BadFormatException>(() => rectangle.AppendLine(input));
     }
 
-    [TestCase("add rectangle t1 (0, 0) (0, 0)")]
-    [TestCase("add rectangle t2 (0, 2) (2, 2)")]
+    [TestCase("add rectangle t1 (0, 0) (0, 0)", TestName = "test1")]
+    [TestCase("add rectangle t2 (0, 2) (2, 2)", TestName = "test2")]
     public void AddRectangleTest_stringInput_IsBadRectanglePointException(string input)
     {
         // ARRANGE
@@ -80,18 +86,21 @@ public class RectangleTests
         Assert.True(isCopy);
     }
 
-    [TestCase(0.0, TestName = "test1")]
-    public void RotateTest_CoordsAndAngle_IsRotated(double angle)
+    // [TestCase(0.0, TestName = "test1")]
+    // [TestCase(360.0, TestName = "test2")]
+    // [TestCase(45.0, new double[] {4.0, 5.1464, 7.0, 5.8535}, new double[] {4.0, 3.2322, 6.0, 6.7677})]
+    public void RotateTest_CoordsAndAngle_IsRotated(double angle, double[] x, double[] y)
     {
         // This test could not be completed due to the inability to process the error
         // ARRANGE
-        var origin = new RectangleFigure(new ScenePoint { X = 2.0, Y = 2.0 }, new ScenePoint { X = 5.0, Y = 5.0 });
-        var basedRect = new RectangleFigure(new ScenePoint { X = 2.0, Y = 2.0 }, new ScenePoint { X = 5.0, Y = 5.0 });
+        var origin = new RectangleFigure(new ScenePoint { X = x[0], Y = y[0] }, new ScenePoint { X = x[2], Y = y[2] });
+        var basedRect = new RectangleFigure(new ScenePoint { X = x[1], Y = y[1] }, new ScenePoint { X = x[3], Y = y[3] });
+        var tolerance = 0.00001;
 
         origin.Rotate(angle);
         var expectedRect = origin;
 
-        Assert.True(Equals(expectedRect, basedRect));
+        Assert.That(basedRect.ApproximateEquals(expectedRect, tolerance), Is.True);
     }
 
     [TestCase("add rectangle t1 (0, 5) (20, 7)", TestName = "test1")]

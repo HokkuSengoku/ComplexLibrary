@@ -33,11 +33,11 @@ public class SceneTests
         return scene;
     }
 
-    [TestCase(5.3, 6.2, 5)]
-    [TestCase(52.3, 16.2, 12)]
-    [TestCase(15.3, 6.2, 50)]
-    [TestCase(53.3, 16.2, 7)]
-    [TestCase(13.3, 15.2, 20)]
+    [TestCase(5.3, 6.2, 5, TestName = "test1")]
+    [TestCase(52.3, 16.2, 12, TestName = "test2")]
+    [TestCase(15.3, 6.2, 50, TestName = "test3")]
+    [TestCase(53.3, 16.2, 7, TestName = "test4")]
+    [TestCase(13.3, 15.2, 20, TestName = "test5")]
     public void MoveSceneTest_Coords_Vector_IsMoved(double vectorX, double vectorY, int coordCount)
     {
         // ARRANGE

@@ -36,11 +36,11 @@ public class CompositeFigureTests
         return new CompositeFigure(composite);
     }
 
-    [TestCase(5.3, 6.2, 5)]
-    [TestCase(52.3, 16.2, 12)]
-    [TestCase(15.3, 6.2, 50)]
-    [TestCase(53.3, 16.2, 7)]
-    [TestCase(13.3, 15.2, 20)]
+    [TestCase(5.3, 6.2, 5, TestName = "test1")]
+    [TestCase(52.3, 16.2, 12, TestName = "test2")]
+    [TestCase(15.3, 6.2, 50, TestName = "test3")]
+    [TestCase(53.3, 16.2, 7, TestName = "test4")]
+    [TestCase(13.3, 15.2, 20, TestName = "test5")]
     public void MoveTests_MoveVector_IsMoved(double vectorX, double vectorY, int coordCount)
     {
         // ARRANGE
@@ -61,11 +61,11 @@ public class CompositeFigureTests
         Assert.True(isMoved);
     }
 
-    [TestCase("group heh, 1 to badgroup")]
-    [TestCase("group heh, 1 as")]
-    [TestCase("group heh, 1")]
-    [TestCase("group badgroup")]
-    [TestCase("g")]
+    [TestCase("group heh, 1 to badgroup", TestName = "test1")]
+    [TestCase("group heh, 1 as", TestName = "test2")]
+    [TestCase("group heh, 1", TestName = "test3")]
+    [TestCase("group badgroup", TestName = "test4")]
+    [TestCase("g", TestName = "test5")]
     public void AddComposite_Command_ThrowException(string input)
     {
         // ARRANGE
@@ -76,11 +76,11 @@ public class CompositeFigureTests
         Assert.Throws<BadFormatException>(() => compositeBuilder.AppendLine(input));
     }
 
-    [TestCase(5.3, 6.2, 5)]
-    [TestCase(52.3, 16.2, 12)]
-    [TestCase(15.3, 6.2, 10)]
-    [TestCase(53.3, 16.2, 7)]
-    [TestCase(13.3, 15.2, 20)]
+    [TestCase(5.3, 6.2, 5, TestName = "test1")]
+    [TestCase(52.3, 16.2, 12, TestName = "test2")]
+    [TestCase(15.3, 6.2, 10, TestName = "test3")]
+    [TestCase(53.3, 16.2, 7, TestName = "test4")]
+    [TestCase(13.3, 15.2, 20, TestName = "test5")]
     public void CompositeCopy_FiguresCoord_IsCopy(double vectorX, double vectorY, int coordCount)
     {
         // ARRANGLE 
@@ -90,7 +90,7 @@ public class CompositeFigureTests
         // ACT
         var circumscribingBased = compositeFigure.CalculateCircumscribingRectangle();
         var circumscribingClone = cloneCompositeFigure.CalculateCircumscribingRectangle();
-        bool isClone = circumscribingBased.GetHashCode() == circumscribingClone.GetHashCode();
+        bool isClone = Equals(compositeFigure, cloneCompositeFigure);
 
         // ASSERT
         Assert.True(isClone);
