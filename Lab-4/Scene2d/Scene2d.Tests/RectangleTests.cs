@@ -7,6 +7,7 @@ using Scene2d.Commands;
 using Scene2d.Exceptions;
 using Scene2d.Figures;
 
+[TestFixture]
 public class RectangleTests
 {
     public RectangleFigure CreateRectangle(string command)

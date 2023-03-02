@@ -5,6 +5,7 @@ using Scene2d.CommandBuilders;
 using Scene2d.Exceptions;
 using Scene2d.Figures;
 
+[TestFixture]
 public class CompositeFigureTests
 {
 

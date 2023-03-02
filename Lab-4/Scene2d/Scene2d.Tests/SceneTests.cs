@@ -4,6 +4,7 @@ using System.Diagnostics;
 using NUnit.Framework;
 using Scene2d.Figures;
 
+[TestFixture]
 public class SceneTests
 {
     public Scene CreateScene(double vectorX, double vectorY, int coordCount)
