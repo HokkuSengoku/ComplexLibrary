@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashpointModel", "CashpointModel\CashpointModel.csproj", "{155D2F72-DC25-498F-B030-06CB254B2E6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashpointModelTests", "CashpointModelTests\CashpointModelTests.csproj", "{0F768F84-D631-48A4-A4C6-1DCA4CD25FEC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{155D2F72-DC25-498F-B030-06CB254B2E6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{155D2F72-DC25-498F-B030-06CB254B2E6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{155D2F72-DC25-498F-B030-06CB254B2E6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{155D2F72-DC25-498F-B030-06CB254B2E6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F768F84-D631-48A4-A4C6-1DCA4CD25FEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F768F84-D631-48A4-A4C6-1DCA4CD25FEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F768F84-D631-48A4-A4C6-1DCA4CD25FEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F768F84-D631-48A4-A4C6-1DCA4CD25FEC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
