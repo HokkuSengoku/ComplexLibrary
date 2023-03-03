@@ -1,0 +1,46 @@
+[
+  {
+    "AuthorId": 1,
+    "Likes": [
+      59,
+      73,
+      84,
+      85,
+      47,
+      67
+    ],
+    "MessageId": 1,
+    "SendDate": "2019-02-27T00:00:00",
+    "Text": "How is the weather?"
+  },
+  {
+    "AuthorId": 2,
+    "Likes": [
+      75,
+      88,
+      23
+    ],
+    "MessageId": 2,
+    "SendDate": "2019-03-15T00:00:00",
+    "Text": "Hi! How are you?"
+  },
+  {
+    "AuthorId": 1,
+    "Likes": [],
+    "MessageId": 3,
+    "SendDate": "2019-03-23T00:00:00",
+    "Text": "Today a great day!"
+  },
+  {
+    "AuthorId": 3,
+    "Likes": [
+      52,
+      95,
+      2,
+      23
+    ],
+    "MessageId": 4,
+    "SendDate": "2019-03-18T00:00:00",
+    "Text": "I went to sleep..."
+  }
+]
