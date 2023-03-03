@@ -13,7 +13,7 @@ public class Tests
     public void AddBanknote_SingleBanknote_ShouldIncrementTotal()
     {
         var cashpoint = new Cashpoint();
-        cashpoint.AddBanknote(5);
+        cashpoint.AddBanknote(5u);
 
         Assert.That(
             cashpoint.Total,
@@ -26,8 +26,8 @@ public class Tests
     {
         var cashpoint = new Cashpoint();
 
-        cashpoint.AddBanknote(5);
-        cashpoint.AddBanknote(10);
+        cashpoint.AddBanknote(5u);
+        cashpoint.AddBanknote(10u);
 
         Assert.That(
             cashpoint.Total,
@@ -40,7 +40,7 @@ public class Tests
     {
         var cashpoint = new Cashpoint();
 
-        cashpoint.RemoveBanknote(5);
+        cashpoint.RemoveBanknote(5u);
 
         Assert.That(
             cashpoint.Total,
@@ -53,8 +53,8 @@ public class Tests
     {
         var cashpoint = new Cashpoint();
 
-        cashpoint.AddBanknote(7);
-        cashpoint.RemoveBanknote(5);
+        cashpoint.AddBanknote(7u);
+        cashpoint.RemoveBanknote(5u);
 
         Assert.That(
             cashpoint.Total,
@@ -67,13 +67,13 @@ public class Tests
     {
         var cashpoint = new Cashpoint();
 
-        cashpoint.AddBanknote(5);
-        cashpoint.AddBanknote(10);
-        cashpoint.RemoveBanknote(5);
+        cashpoint.AddBanknote(5u);
+        cashpoint.AddBanknote(10u);
+        cashpoint.RemoveBanknote(5u);
 
         Assert.That(
             cashpoint.Total,
-            Is.EqualTo(10),
+            Is.EqualTo(10u),
             "Купюра извлечена некорректно");
     }
     
@@ -96,7 +96,7 @@ public class Tests
             cashpoint.CanGrant(0),
             "Банкомат не смог выдать 0");
 
-        cashpoint.AddBanknote(5);
+        cashpoint.AddBanknote(5u);
 
         Assert.That(
             cashpoint.CanGrant(0),
@@ -108,7 +108,7 @@ public class Tests
     {
         var cashpoint = new Cashpoint();
 
-        cashpoint.AddBanknote(5);
+        cashpoint.AddBanknote(5u);
 
         Assert.That(
             cashpoint.CanGrant(5),
@@ -120,7 +120,7 @@ public class Tests
     {
         var cashpoint = new Cashpoint();
 
-        cashpoint.AddBanknote(5);
+        cashpoint.AddBanknote(5u);
 
         Assert.That(
             cashpoint.CanGrant(4),
@@ -138,8 +138,8 @@ public class Tests
     {
         var cashpoint = new Cashpoint();
 
-        cashpoint.AddBanknote(5);
-        cashpoint.AddBanknote(3);
+        cashpoint.AddBanknote(5u);
+        cashpoint.AddBanknote(3u);
 
         Assert.That(
             cashpoint.CanGrant(8),
@@ -151,8 +151,8 @@ public class Tests
     {
         var cashpoint = new Cashpoint();
 
-        cashpoint.AddBanknote(5);
-        cashpoint.AddBanknote(3);
+        cashpoint.AddBanknote(5u);
+        cashpoint.AddBanknote(3u);
 
         Assert.That(
             cashpoint.CanGrant(6),
@@ -180,4 +180,75 @@ public class Tests
         Assert.That(cashpoint.CanGrant(3350));
         Assert.That(cashpoint.CanGrant(3980), Is.False);
     }
+
+    [Test]
+    public void CountUpdate_CountBeUp()
+    { 
+        var cashpoint = new Cashpoint();
+        cashpoint.AddBanknote(10);
+        cashpoint.AddBanknote(10);
+        cashpoint.AddBanknote(10);
+        cashpoint.AddBanknote(10);
+        cashpoint.AddBanknote(10);
+        
+        Assert.True(cashpoint.Count == 5);
+    }
+    
+    [Test]
+    public void CountUpdate_CountBeDown()
+    { 
+        var cashpoint = new Cashpoint();
+        cashpoint.AddBanknote(10);
+        cashpoint.AddBanknote(10);
+        cashpoint.AddBanknote(10);
+        cashpoint.AddBanknote(10);
+        cashpoint.AddBanknote(10);
+        cashpoint.RemoveBanknote(10);
+        cashpoint.RemoveBanknote(10);
+        cashpoint.RemoveBanknote(10);
+        cashpoint.RemoveBanknote(10);
+        cashpoint.RemoveBanknote(10);
+        
+        Assert.True(cashpoint.Count == 0);
+    }
+
+    [Test]
+    public void CountMultiUpdate_CountBeUp()
+    {
+        var cashpoint = new Cashpoint();
+        cashpoint.AddBanknote(5, 2);
+        cashpoint.AddBanknote(5, 3);
+        cashpoint.AddBanknote(5, 4);
+        
+        Assert.True(cashpoint.Count == 9);
+    }
+
+    [Test]
+    public void CountMultiUpdate_CountBeDown()
+    {
+        var cashpoint = new Cashpoint();
+        cashpoint.AddBanknote(5, 2);
+        cashpoint.AddBanknote(5, 3);
+        cashpoint.AddBanknote(5, 4);
+        cashpoint.RemoveBanknote(5, 2);
+        cashpoint.RemoveBanknote(5, 3);
+        cashpoint.RemoveBanknote(5, 4);
+        
+        Assert.True(cashpoint.Count == 0);
+    }
+
+    [Test]
+    public void SumTwoNumbers_ShouldGrant()
+    {
+        var cashpoint = new Cashpoint();
+        cashpoint.AddBanknote(5);
+        cashpoint.AddBanknote(30);
+        cashpoint.AddBanknote(250);
+        cashpoint.RemoveBanknote(250);
+        cashpoint.AddBanknote(250);
+        cashpoint.AddBanknote(280);
+        
+        Assert.True(cashpoint.CanGrant(285));
+    }
+    
 }
