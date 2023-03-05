@@ -17,12 +17,9 @@ namespace Calculator
         public string Calculate(string inputString)
         {
             // todo: реализуйте метод Calculate().
-            // Здесь вам нужно получить значение для выражения из inputString,
-            // используя экземпляры классов Calculator и Parser
-            // соответственно для распарсивания строки и вычисления выражения
-            //
-            // Обратите внимание на юнит-тесты для этого класса
-            return null;
+            var operation = _parser.Parse(inputString);
+            var result = _calculatorEngine.PerformOperation(operation);
+            return result.ToString();
         }
     }
 }

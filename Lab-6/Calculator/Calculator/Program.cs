@@ -30,6 +30,14 @@ namespace Calculator
                 // можно использовать одинаковое имя для операций с разным количеством аргументов
                 calculator.DefineOperation("-", a => -a);
                 calculator.DefineOperation("-", (a, b) => a - b);
+                calculator.DefineOperation("-", (a, b, c) => a - b - c);
+                calculator.DefineOperation("+", a => +a);
+                calculator.DefineOperation("+", (a, b) => a + b);
+                calculator.DefineOperation("+", (a, b, c) => a + b + c);
+                calculator.DefineOperation("/", a => a / a);
+                calculator.DefineOperation("/", (a, b) => a / b);
+                calculator.DefineOperation("/", (a, b, c) => a / b / c);
+                calculator.DefineOperation("++", a => ++a);
 
                 // обратите внимание: подставляется напрямую метод класса Math
                 // это эквивалентно calculator.DefineOperation("^", (x, y) => Math.Pow(x, y)), но лаконичнее
@@ -40,6 +48,18 @@ namespace Calculator
             catch (AlreadyExistsOperationException)
             {
                 Console.WriteLine("This operation already exists in the calculator");
+            }
+            catch (NotFoundOperationException)
+            {
+                Console.WriteLine("The operation does not exist");
+            }
+            catch (IncorrectParametersException)
+            {
+                Console.WriteLine("Invalid parameters");
+            }
+            catch (ParametersCountMismatchException)
+            {
+                Console.WriteLine("Invalid number of parameters");
             }
 
             var evaluator = new Evaluator(calculator, parser);
@@ -57,9 +77,21 @@ namespace Calculator
                 {
                     Console.WriteLine(evaluator.Calculate(line));
                 }
+                catch (AlreadyExistsOperationException)
+                {
+                    Console.WriteLine("This operation already exists in the calculator");
+                }
                 catch (NotFoundOperationException)
                 {
-                    // todo сообщение об ошибке
+                    Console.WriteLine("The operation does not exist");
+                }
+                catch (IncorrectParametersException)
+                {
+                    Console.WriteLine("Invalid parameters");
+                }
+                catch (ParametersCountMismatchException)
+                {
+                    Console.WriteLine("Invalid number of parameters");
                 }
 
                 // todo: кажется здесь мы "отловили" только одно

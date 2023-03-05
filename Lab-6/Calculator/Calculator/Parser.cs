@@ -21,7 +21,22 @@ namespace Calculator
             // соответствующее исключение из папки Exceptions
             //
             // Обратите внимание на юнит-тесты для этого класса
-            return null;
+            var command =
+                inputString.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            if (command.Length < 2)
+            {
+                throw new IncorrectParametersException();
+            }
+
+            var sign = command[0];
+            double[] parameters = new double[command.Length - 1];
+            for (var i = 1; i < command.Length; i++)
+            {
+                double.TryParse(command[i], out parameters[i - 1]);
+            }
+
+            Operation operation = new Operation(sign, parameters);
+            return operation;
         }
     }
 }
