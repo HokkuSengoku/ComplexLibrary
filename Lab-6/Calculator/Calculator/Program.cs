@@ -38,10 +38,14 @@ namespace Calculator
                 calculator.DefineOperation("/", (a, b) => a / b);
                 calculator.DefineOperation("/", (a, b, c) => a / b / c);
                 calculator.DefineOperation("++", a => ++a);
+                calculator.DefineOperation("%", (a, b) => a % b);
 
                 // обратите внимание: подставляется напрямую метод класса Math
                 // это эквивалентно calculator.DefineOperation("^", (x, y) => Math.Pow(x, y)), но лаконичнее
                 calculator.DefineOperation("^", Math.Pow);
+                calculator.DefineOperation("cos", Math.Cos);
+                calculator.DefineOperation("sin", Math.Sin);
+                calculator.DefineOperation("tg", Math.Tan);
 
                 // ... определите остальные операции здесь ...
             }
