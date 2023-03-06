@@ -1,6 +1,11 @@
 namespace Social
 {
+    using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text.Json;
     using Social.Models;
 
     public class SocialDataSource
@@ -22,7 +27,10 @@ namespace Social
         {
             var userContext = new UserContext();
 
-            // userContext.User = ...
+            userContext.User = _users.FirstOrDefault(user => user.Name == userName);
+
+           // GetUsers("Path/users.json");
+
             // userContext.Friends = GetUserFriends(userContext.User);
             // todo: заполнить информацию
             return userContext;
@@ -30,17 +38,33 @@ namespace Social
 
         private void GetUsers(string path)
         {
-           // todo: Сделать метод
+            var text = File.ReadAllText(path);
+            User[] user =
+                JsonSerializer.Deserialize<User[]>(text);
+            _users = user.ToList();
         }
 
         private void GetFriends(string path)
         {
-            // todo: Сделать метод
+            var text = File.ReadAllText(path);
+            Friend[] friends =
+                JsonSerializer.Deserialize<Friend[]>(text);
+            _friends = friends.ToList();
         }
 
         private void GetMessages(string path)
         {
-            // todo: Сделать метод
+            var text = File.ReadAllText(path);
+            Message[] messages =
+                JsonSerializer.Deserialize<Message[]>(text);
+            _messages = messages.ToList();
+        }
+
+        private void GetOnlineFriend(string userName)
+        {
+            var idUser = _users.Single(user => user.Name == userName).UserId;
+            var friends = _friends.Where(friend => (friend.ToUserId == friend.FromUserId && friend.Status != 3)
+            || (friend.FromUserId != friend.ToUserId && friend.Status == 2) || (friend.FromUserId != friend.ToUserId && friend.Status == 3));
         }
     }
 }
