@@ -30,7 +30,7 @@ public sealed class Cashpoint
         }
         Count++;
         _total += value;
-        CalculateGrants();
+        CalculateGrants_OnAdd(value);
     }
 
     public void AddBanknote(uint value, int count)
@@ -47,7 +47,7 @@ public sealed class Cashpoint
             }
             Count++;
             _total += value;
-            CalculateGrants();
+            CalculateGrants_OnAdd(value);
         }
     }
 
@@ -58,12 +58,12 @@ public sealed class Cashpoint
             _banknotes2[value]--;
             Count--;
             _total -= value;
-            CalculateGrants();
         }
         else if (_banknotes2.ContainsKey(value)  && _banknotes2[value] == 0)
         {
             _banknotes2.Remove(value);
         }
+        CalculateGrants_OnRemove(value);
     }
 
     public void RemoveBanknote(uint value, int count)
@@ -75,13 +75,13 @@ public sealed class Cashpoint
                 _banknotes2[value]--;
                 Count--;
                 _total -= value;
-                CalculateGrants();
             }
             else if (_banknotes2.ContainsKey(value)  && _banknotes2[value] == 0)
             {
                 _banknotes2.Remove(value);
             }
         }
+        CalculateGrants_OnRemove(value);
     }
     
     public bool CanGrant(uint value)
@@ -95,18 +95,34 @@ public sealed class Cashpoint
     }
 
     
-    private void CalculateGrants()
+    private void CalculateGrants_OnAdd(uint value)
     {
-        _granted = new uint[_total + 1];
+        Array.Resize(ref _granted, (int)(_total + 1));
         _granted[0] = 1;
 
-        foreach (var b in _banknotes2)
+        for (var i = _granted.Length - 1; i >= 0; i--)
         {
-            for (var i = (int)_total; i >= 0; i--)
+            
+            if (_granted[i] > 0)
             {
-                if (_granted[i] == 1 && _total != 0 && i + b.Key <= _total)
+                _granted[i + value] += _granted[i];
+            }
+        }
+    }
+
+    private void CalculateGrants_OnRemove(uint value)
+    {
+        Array.Resize(ref _granted, (int)(_total + 1));
+        _granted[0] = 1;
+
+        if (_granted.Length > 1)
+        {
+            for (var i = 0; i < _granted.Length; i++)
+            {
+
+                if (_granted[i] > 0 && i + value <= _granted.Length)
                 {
-                    _granted[i + b.Key] = 1;
+                    _granted[i + value] -= _granted[i];
                 }
             }
         }
