@@ -28,5 +28,17 @@
     "SendDate": "2013-02-09T00:00:00",
     "Status": 3,
     "ToUserId": 3
+  },
+  {
+    "FromUserId": 1,
+    "SendDate": "2020-02-03T00:00:00",
+    "Status": 1,
+    "ToUserId": 4
+  },
+  {
+    "FromUserId": 4,
+    "SendDate": "2022-02-03T00:00:00",
+    "Status": 1,
+    "ToUserId": 1
   }
 ]
