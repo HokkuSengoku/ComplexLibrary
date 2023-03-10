@@ -28,12 +28,11 @@ namespace Social
             var userContext = new UserContext();
 
             userContext.User = _users.FirstOrDefault(user => user.Name == userName);
-            Printing_A_User_Greeting(userContext.User);
             userContext.Friends = GetFriendsAll(userContext.User.Name);
             userContext.OnlineFriends = GetOnlineFriends(userContext.User.Name);
             userContext.Subscribers = GetSubscribers(userContext.User.Name);
             userContext.FriendshipOffers = GetNewFriendshipOffers(userContext.User.Name);
-            userContext.News = GetAFeed(userContext.Friends, userContext.User);
+            userContext.News = GetAFeed(userContext.User.Name);
 
             // todo: заполнить информацию
             return userContext;
@@ -119,21 +118,6 @@ namespace Social
             return subscribersInfo as List<UserInformation>;
         }
 
-        private void Printing_A_User_Greeting(User user)
-        {
-            string gender;
-            if (user.Gender == 0)
-            {
-                gender = "male";
-            }
-            else
-            {
-                gender = "female";
-            }
-
-            Console.WriteLine($"Hello {user.Name}!\n Your age: {(int)(DateTime.Now - user.DateOfBirth).TotalDays / 365} \n Gender: {gender}");
-        }
-
         private List<UserInformation> GetNewFriendshipOffers(string userName)
         {
             var idUser = _users.Single(user => user.Name == userName).UserId;
@@ -151,9 +135,12 @@ namespace Social
             return newFriendshipOffers as List<UserInformation>;
         }
 
-        private List<News> GetAFeed(List<UserInformation> friends, User user)
+        private List<News> GetAFeed(string userName)
         {
+            var user = _users.FirstOrDefault(user => user.Name == userName);
             var lastVisit = user.LastVisit;
+            var idUser = user.UserId;
+            var friends = GetFriendsAll(user.Name);
             var news = from message in _messages
                 join friend in friends
                     on message.AuthorId equals friend.UserId

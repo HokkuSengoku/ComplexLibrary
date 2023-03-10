@@ -30,7 +30,22 @@ namespace Social
             var userContext = socialDataSource.GetUserContext(name);
 
             // todo: вывод в консоль
-            Console.WriteLine(userContext.User);
+            PrintUserInfo(userContext);
+        }
+
+        private static void PrintUserInfo(UserContext user)
+        {
+            string gender;
+            if (user.User.Gender == 0)
+            {
+                gender = "male";
+            }
+            else
+            {
+                gender = "female";
+            }
+
+            Console.WriteLine($"Hello {user.User.Name}!\n Your age: {(int)(DateTime.Now - user.User.DateOfBirth).TotalDays / 365} \n Gender: {gender}");
         }
     }
 }
