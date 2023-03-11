@@ -28,11 +28,11 @@ namespace Social
             var userContext = new UserContext();
 
             userContext.User = _users.FirstOrDefault(user => user.Name == userName);
-            userContext.Friends = GetFriendsAll(userContext.User.Name);
-            userContext.OnlineFriends = GetOnlineFriends(userContext.User.Name);
-            userContext.Subscribers = GetSubscribers(userContext.User.Name);
-            userContext.FriendshipOffers = GetNewFriendshipOffers(userContext.User.Name);
-            userContext.News = GetAFeed(userContext.User.Name);
+            userContext.Friends = GetFriendsAll(userContext.User);
+            userContext.OnlineFriends = GetOnlineFriends(userContext.User);
+            userContext.Subscribers = GetSubscribers(userContext.User);
+            userContext.FriendshipOffers = GetNewFriendshipOffers(userContext.User);
+            userContext.News = GetAFeed(userContext.User);
 
             // todo: заполнить информацию
             return userContext;
@@ -62,85 +62,80 @@ namespace Social
             _messages = messages.ToList();
         }
 
-        private List<UserInformation> GetFriendsAll(string userName)
+        private List<UserInformation> GetFriendsAll(User user)
         {
-            var idUser = _users.Single(user => user.Name == userName).UserId;
-            var friends = _friends.Where(friend => (friend.ToUserId == idUser && friend.FromUserId != idUser && friend.Status == 2)
-                                                   || (friend.FromUserId != idUser && friend.Status == 2) || (friend.ToUserId == idUser && friend.FromUserId == idUser && friend.Status != 3));
-
-            var friendsNames = from user in _users
-                join friend in friends
-                    on user.UserId equals friend.FromUserId
-                select new UserInformation()
-                {
-                    Name = user.Name,
-                    Online = user.Online,
-                    UserId = user.UserId,
-                };
-
-            return friendsNames as List<UserInformation>;
-        }
-
-        private List<UserInformation> GetOnlineFriends(string userName)
-        {
-            var idUser = _users.Single(user => user.Name == userName).UserId;
-            var friends = _friends.Where(friend => (friend.ToUserId == idUser && friend.FromUserId != idUser && friend.Status == 2)
-                                                   || (friend.FromUserId != idUser && friend.Status == 2) || (friend.ToUserId == idUser && friend.FromUserId == idUser && friend.Status != 3));
-            var friendsOnline = from user in _users
-                join friend in friends
-                    on user.UserId equals friend.FromUserId
-                where user.Online == true
-                select new UserInformation()
-                {
-                    Name = user.Name,
-                    Online = user.Online,
-                    UserId = user.UserId,
-                };
-
-            return friendsOnline as List<UserInformation>;
-        }
-
-        private List<UserInformation> GetSubscribers(string userName)
-        {
-            var idUser = _users.Single(user => user.Name == userName).UserId;
-            var subscribers = _friends.Where(friend =>
-                ((friend.ToUserId == idUser) && friend.Status != 2 && friend.Status != 3));
-            var subscribersInfo = from user in _users
-                join subscriber in subscribers
-                    on user.UserId equals subscriber.FromUserId
-                select new UserInformation()
-                {
-                    Name = user.Name,
-                    Online = user.Online,
-                    UserId = user.UserId,
-                };
-
-            return subscribersInfo as List<UserInformation>;
-        }
-
-        private List<UserInformation> GetNewFriendshipOffers(string userName)
-        {
-            var idUser = _users.Single(user => user.Name == userName).UserId;
-            var newFriendshipOffers = from user in _users
-                join friend in _friends
-                    on user.UserId equals friend.FromUserId
-                where friend.SendDate > user.LastVisit && user.UserId != idUser
-                select new UserInformation()
-                {
-                    Name = user.Name,
-                    Online = user.Online,
-                    UserId = user.UserId,
-                };
-
-            return newFriendshipOffers as List<UserInformation>;
-        }
-
-        private List<News> GetAFeed(string userName)
-        {
-            var user = _users.FirstOrDefault(user => user.Name == userName);
-            var lastVisit = user.LastVisit;
             var idUser = user.UserId;
-            var friends = GetFriendsAll(user.Name);
+            var friends = _friends.Where(friend =>
+                (friend.ToUserId == idUser && friend.FromUserId != idUser && friend.Status == 2)
+                || (friend.ToUserId != idUser && friend.FromUserId == idUser && friend.Status == 2) || (friend.ToUserId == idUser && friend.FromUserId != idUser && friend.Status != 3)).Distinct();
+
+            var friendsNames = from usr in _users
+                join friend in friends
+                    on usr.UserId equals friend.FromUserId | friend.ToUserId
+                    where friend.FromUserId != friend.ToUserId
+                select new UserInformation()
+                {
+                    Name = usr.Name,
+                    Online = usr.Online,
+                    UserId = usr.UserId,
+                };
+
+            friendsNames = friendsNames.Where(x => x.UserId != user.UserId).Distinct();
+
+            return friendsNames.ToList();
+        }
+
+        private List<UserInformation> GetOnlineFriends(User user)
+        {
+            var friends = GetFriendsAll(user);
+            var friendsOnline = friends.Where(friend => friend.Online == true).Distinct();
+
+            return friendsOnline.ToList();
+        }
+
+        private List<UserInformation> GetSubscribers(User user)
+        {
+            var x = GetFriendsAll(user);
+            var subscribers = _friends.Where(friend =>
+                ((friend.ToUserId == user.UserId) && friend.Status != 2 && friend.Status != 3)).Distinct();
+            var subscribersInfo = from usr in _users
+                join subscriber in subscribers
+                    on usr.UserId equals subscriber.FromUserId
+                select new UserInformation()
+                {
+                    Name = usr.Name,
+                    Online = usr.Online,
+                    UserId = usr.UserId,
+                };
+
+            subscribersInfo = subscribersInfo.Where(frined => !x.Contains(frined)).Distinct();
+
+            return subscribersInfo.ToList();
+        }
+
+        private List<UserInformation> GetNewFriendshipOffers(User user)
+        {
+            var x = GetFriendsAll(user);
+            var newFriendshipOffers = from usr in _users
+                join friend in _friends
+                    on usr.UserId equals friend.ToUserId
+                where friend.SendDate > usr.LastVisit && usr.UserId != user.UserId
+                select new UserInformation()
+                {
+                    Name = usr.Name,
+                    Online = usr.Online,
+                    UserId = usr.UserId,
+                };
+
+            newFriendshipOffers = newFriendshipOffers.Where(friend => !x.Contains(friend)).Distinct();
+
+            return newFriendshipOffers.ToList();
+        }
+
+        private List<News> GetAFeed(User user)
+        {
+            var lastVisit = user.LastVisit;
+            var friends = GetFriendsAll(user);
             var news = from message in _messages
                 join friend in friends
                     on message.AuthorId equals friend.UserId
@@ -153,7 +148,7 @@ namespace Social
                     Text = message.Text,
                 };
 
-            return news as List<News>;
+            return news.ToList();
         }
     }
 }
