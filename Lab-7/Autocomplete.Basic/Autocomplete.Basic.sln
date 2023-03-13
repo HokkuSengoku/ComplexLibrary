@@ -1,0 +1,31 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autocomplete.Basic", "Autocomplete.Basic\Autocomplete.Basic.csproj", "{E873DD9E-23CD-46ED-9097-847904331D79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autocomplete.Basic.Tests", "Autocomplete.Basic.Tests\Autocomplete.Basic.Tests.csproj", "{B780AA18-0CDD-4D88-A508-BE48C02E444A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E873DD9E-23CD-46ED-9097-847904331D79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E873DD9E-23CD-46ED-9097-847904331D79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E873DD9E-23CD-46ED-9097-847904331D79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E873DD9E-23CD-46ED-9097-847904331D79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B780AA18-0CDD-4D88-A508-BE48C02E444A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B780AA18-0CDD-4D88-A508-BE48C02E444A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B780AA18-0CDD-4D88-A508-BE48C02E444A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B780AA18-0CDD-4D88-A508-BE48C02E444A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8B71C7CA-17AF-43B1-AAF6-DD7E11FEB942}
+	EndGlobalSection
+EndGlobal
