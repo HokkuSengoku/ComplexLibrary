@@ -8,9 +8,9 @@ namespace Social
     {
         // TODO: пути к файлам
         private const string PathDirectory = "Data";
-        private const string PathUsers = PathDirectory + "/users1.json";
-        private const string PathFriends = PathDirectory + "/friends1.json";
-        private const string PathMessages = PathDirectory + "/messages1.json";
+        private const string PathUsers = PathDirectory + "/users.json";
+        private const string PathFriends = PathDirectory + "/friends.json";
+        private const string PathMessages = PathDirectory + "/messages.json";
 
         private static void Main(string[] args)
         {
@@ -92,7 +92,7 @@ namespace Social
             Console.WriteLine("======================================================Updates in the news feed:======================================================");
             foreach (var nws in news)
             {
-                Console.WriteLine($"[{nws.AuthorName}]: {nws.Text} \t {nws.Likes.Sum()} likes");
+                Console.WriteLine($"[{nws.AuthorName}]: {nws.Text} \t {nws.Likes.Count} likes");
             }
 
             Console.WriteLine("======================================================================================================================================");

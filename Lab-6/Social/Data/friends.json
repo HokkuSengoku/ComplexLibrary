@@ -42,9 +42,9 @@
     "ToUserId": 1
   },
   {
-    "FromUserId": 4,
+    "FromUserId": 2,
     "SendDate": "2022-02-03T00:00:00",
-    "Status": 1,
+    "Status": 0,
     "ToUserId": 1
   },
   {

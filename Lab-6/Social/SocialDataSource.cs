@@ -65,24 +65,39 @@ namespace Social
         private List<UserInformation> GetFriendsAll(User user)
         {
             var idUser = user.UserId;
+
             var friends = _friends.Where(friend =>
                 (friend.ToUserId == idUser && friend.FromUserId != idUser && friend.Status == 2)
-                || (friend.ToUserId != idUser && friend.FromUserId == idUser && friend.Status == 2) || (friend.ToUserId == idUser && friend.FromUserId != idUser && friend.Status != 3)).Distinct();
+                || (friend.ToUserId != idUser && friend.FromUserId == idUser && friend.Status == 2)).ToList();
 
-            var friendsNames = from usr in _users
-                join friend in friends
-                    on usr.UserId equals friend.FromUserId | friend.ToUserId
-                    where friend.FromUserId != friend.ToUserId
-                select new UserInformation()
+            var intersectFriendsToUser = _friends.Where(f => f.ToUserId == idUser && f.FromUserId != idUser && f.Status != 3);
+            var intersectFriendsFromUser =
+                _friends.Where(f => f.FromUserId == idUser && f.ToUserId != idUser && f.Status != 3);
+            var x = from fromUser in intersectFriendsFromUser
+                join toUser in intersectFriendsToUser
+                    on fromUser.ToUserId equals toUser.FromUserId
+                where fromUser.FromUserId == toUser.ToUserId
+                select new Friend()
                 {
-                    Name = usr.Name,
-                    Online = usr.Online,
-                    UserId = usr.UserId,
+                    ToUserId = toUser.ToUserId,
+                    FromUserId = toUser.FromUserId,
+                    SendDate = toUser.SendDate,
+                    Status = toUser.Status,
                 };
+            foreach (var item in x)
+            {
+                friends.Add(item);
+            }
 
-            friendsNames = friendsNames.Where(x => x.UserId != user.UserId).Distinct();
+            var friendId = friends.Select(x => x.ToUserId == idUser ? x.FromUserId : -1);
+            var friendNamess = _users.Where(u => friendId.Contains(u.UserId)).Select(u => new UserInformation
+            {
+                Name = u.Name,
+                Online = u.Online,
+                UserId = u.UserId,
+            }).ToList();
 
-            return friendsNames.ToList();
+            return friendNamess;
         }
 
         private List<UserInformation> GetOnlineFriends(User user)
