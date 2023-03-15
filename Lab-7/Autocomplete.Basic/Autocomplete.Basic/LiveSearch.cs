@@ -3,6 +3,7 @@ namespace Autocomplete.Basic
     using System.IO;
     using System.Linq;
     using System.Threading;
+    using System.Threading.Tasks;
 
     public sealed class LiveSearch
     {
@@ -10,14 +11,8 @@ namespace Autocomplete.Basic
         private static readonly string[] MovieTitles = File.ReadAllLines(@"Data/movies.txt");
         private static readonly string[] StageNames = File.ReadAllLines(@"Data/stagenames.txt");
 
-        private Thread _searchThread;
-
-        public static string FindBestSimilar(string example)
+        public static string FindBestSimilar(SimilarLine stageResult, SimilarLine movieResult, SimilarLine wordResult)
         {
-            var stageResult = BestSimilarInArray(StageNames, example);
-            var movieResult = BestSimilarInArray(MovieTitles, example);
-            var wordResult = BestSimilarInArray(SimpleWords, example);
-
             if (wordResult.SimilarityScore > movieResult.SimilarityScore &&
                 wordResult.SimilarityScore > stageResult.SimilarityScore)
             {
@@ -29,19 +24,21 @@ namespace Autocomplete.Basic
 
         public void HandleTyping(HintedControl control)
         {
-            if (_searchThread != null)
+            Task<SimilarLine> task1 = Task.Run(() =>
             {
-                _searchThread.Abort();
-                _searchThread.Join();
-            }
+                return BestSimilarInArray(SimpleWords, control.LastWord);
+            });
+            Task<SimilarLine> task2 = Task.Run(() =>
+            {
+               return BestSimilarInArray(MovieTitles, control.LastWord);
+            });
+            Task<SimilarLine> task3 = Task.Run(() =>
+            {
+                return BestSimilarInArray(StageNames, control.LastWord);
+            });
+            Task.WaitAll(task1, task2, task3);
 
-            _searchThread = new Thread(
-                () =>
-                {
-                    control.Hint = FindBestSimilar(control.LastWord);
-                });
-
-            _searchThread.Start();
+            control.Hint = FindBestSimilar(task1.Result, task2.Result, task3.Result);
         }
 
         internal static SimilarLine BestSimilarInArray(string[] lines, string example)
