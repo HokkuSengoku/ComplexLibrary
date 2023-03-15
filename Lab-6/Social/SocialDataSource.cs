@@ -133,8 +133,8 @@ namespace Social
             var x = GetFriendsAll(user);
             var newFriendshipOffers = from usr in _users
                 join friend in _friends
-                    on usr.UserId equals friend.ToUserId
-                where friend.SendDate > usr.LastVisit && usr.UserId != user.UserId
+                    on usr.UserId equals friend.FromUserId
+                where friend.SendDate > usr.LastVisit && friend.ToUserId == user.UserId
                 select new UserInformation()
                 {
                     Name = usr.Name,

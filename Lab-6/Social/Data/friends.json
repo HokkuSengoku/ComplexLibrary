@@ -52,5 +52,11 @@
     "SendDate": "2022-02-03T00:00:00",
     "Status": 0,
     "ToUserId": 1
+  },
+  {
+    "FromUserId": 6,
+    "SendDate": "2022-02-03T00:00:00",
+    "Status": 0,
+    "ToUserId": 1
   }
 ]
