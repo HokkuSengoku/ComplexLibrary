@@ -1,0 +1,41 @@
+CREATE DATABASE Social
+GO
+
+USE Social
+GO
+
+CREATE TABLE Users 
+(
+	userId INT IDENTITY (1, 1) PRIMARY KEY, 
+	gender BIT,
+	dateOfBirth DATETIME,  
+	lastVisit DATETIME,
+	isOnline BIT NOT NULL DEFAULT 0,
+	name NVARCHAR(128) NOT NULL
+);
+GO
+
+CREATE TABLE Friends 
+(
+	friendId INT IDENTITY(1, 1) PRIMARY KEY,
+	userFrom INT NOT NULL REFERENCES Users,
+	userTo INT NOT NULL REFERENCES Users,
+	friendStatus SMALLINT,
+	sendDate DATETIME  
+);
+GO
+
+CREATE TABLE Messages 
+(
+	messageId INT IDENTITY(1, 1) PRIMARY KEY,
+	authorId INT NOT NULL REFERENCES Users, 
+	sendDate DATETIME NOT NULL, 
+	messageText NVARCHAR(max)
+);
+
+CREATE TABLE Likes
+(
+	userId INT NOT NULL REFERENCES Users,
+	messageId INT NOT NULL REFERENCES Messages
+)
+GO
