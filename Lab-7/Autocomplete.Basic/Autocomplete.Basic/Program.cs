@@ -1,5 +1,6 @@
 namespace Autocomplete.Basic
 {
+    using System;
     using System.Diagnostics;
 
     public class Program
@@ -9,7 +10,7 @@ namespace Autocomplete.Basic
             var search = new LiveSearch();
 
             var control = new HintedControl();
-            control.Hint = "keeek";
+            control.Hint = "Hint";
             control.TypingEvent += search.HandleTyping;
             control.Run();
         }
