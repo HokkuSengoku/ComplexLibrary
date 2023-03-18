@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.12.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
     <None Update="Data\movies.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
