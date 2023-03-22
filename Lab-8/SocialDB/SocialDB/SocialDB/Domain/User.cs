@@ -1,0 +1,19 @@
+namespace SocialDB.Domain;
+
+public class User
+{
+    public DateTime DateOfBirth { get; set; }
+
+    public int Gender { get; set; }
+
+    public DateTime LastVisit { get; set; }
+
+    public string Name { get; set; }
+
+    public bool Online { get; set; }
+
+    public int UserId { get; set; }
+    
+    public ICollection<Friend> Friends { get; set; }
+    public ICollection<Message> Messages { get; set; }
+}

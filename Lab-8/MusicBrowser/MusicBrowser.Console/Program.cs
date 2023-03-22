@@ -2,6 +2,9 @@ namespace MusicBrowser.Console
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
     using MusicBrowser.Console.Application;
     using MusicBrowser.Console.DataAccess;
     using MusicBrowser.Console.DataAccess.AdoNet;
@@ -9,26 +12,28 @@ namespace MusicBrowser.Console
 
     internal class Program
     {
-        public static void Main()
+        public static void Main(string[] args)
         {
-            IConfiguration config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", true, true)
-                .Build();
+            IHost host = CreateHostBuilder(args).Build();
 
-            string connectionString = config.GetConnectionString("DefaultConnectionString");
-
-            DataContext dataContext = new DataContext(
-                new DbContextOptionsBuilder()
-                    .UseSqlServer(connectionString)
-                    .Options);
+            var dataContext = host.Services.GetService<DataContext>();
 
             IMusicRepository musicRepository = new EntityFrameworkMusicRepository(dataContext);
 
-// IMusicRepository musicRepository = new AdoNetMusicRepository(connectionString);
             var dataModel = new MusicListModel(musicRepository);
             var list = new ExpandableList(dataModel);
 
             list.Run();
         }
+
+        public static IHostBuilder CreateHostBuilder(string[] args)
+            => Host.CreateDefaultBuilder(args)
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddDbContext<DataContext>(
+                        options => options.UseSqlServer(
+                            context.Configuration.GetConnectionString("DefaultConnectionString")));
+                })
+                .UseConsoleLifetime();
     }
 }
