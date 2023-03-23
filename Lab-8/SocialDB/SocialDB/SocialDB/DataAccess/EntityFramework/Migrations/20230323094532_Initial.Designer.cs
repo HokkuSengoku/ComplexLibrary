@@ -12,7 +12,7 @@ using SocialDB.DataAccess.EntityFramework;
 namespace SocialDB.DataAccess.EntityFramework.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230322195712_Initial")]
+    [Migration("20230323094532_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
