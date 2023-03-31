@@ -76,9 +76,16 @@ public class DataContext : DbContext
             .HasForeignKey(m => m.AuthorId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        var likeModel = modelBuilder.Entity<Like>().HasNoKey();
+        var likeModel = modelBuilder.Entity<Like>();
 
-        likeModel.ToTable("likes");
+
+        likeModel.ToTable("likes")
+            .HasKey(l => l.LikeId);
+
+        likeModel
+            .Property(l => l.LikeId)
+            .HasColumnName("id")
+            .UseIdentityColumn();
 
         likeModel.Property(x => x.UserId).HasColumnName("userId");
         likeModel.Property(x => x.MessageId).HasColumnName("messageId");

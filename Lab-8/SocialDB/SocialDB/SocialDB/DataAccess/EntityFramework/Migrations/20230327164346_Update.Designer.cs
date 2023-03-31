@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocialDB.DataAccess.EntityFramework;
 
@@ -11,9 +12,11 @@ using SocialDB.DataAccess.EntityFramework;
 namespace SocialDB.DataAccess.EntityFramework.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230327164346_Update")]
+    partial class Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,13 +59,6 @@ namespace SocialDB.DataAccess.EntityFramework.Migrations
 
             modelBuilder.Entity("SocialDB.Domain.Like", b =>
                 {
-                    b.Property<int>("LikeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LikeId"));
-
                     b.Property<int>("MessageId")
                         .HasColumnType("int")
                         .HasColumnName("messageId");
@@ -71,9 +67,9 @@ namespace SocialDB.DataAccess.EntityFramework.Migrations
                         .HasColumnType("int")
                         .HasColumnName("userId");
 
-                    b.HasKey("LikeId");
+                    b.ToTable((string)null);
 
-                    b.ToTable("likes", (string)null);
+                    b.ToView("Likes", (string)null);
                 });
 
             modelBuilder.Entity("SocialDB.Domain.Message", b =>
